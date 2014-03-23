@@ -4,13 +4,13 @@
 FILES='.zshrc'
 
 # Create backup
-PATH_BACKUP='~/.backup/'
+PATH_BACKUP=~/backup/
 echo mkdir -p $PATH_BACKUP
 mkdir -p $PATH_BACKUP 
 
 for i in $FILES; do
-  echo mv -f ~/$i $PATH_BACKUP
-  mv -f ~/$i $PATH_BACKUP
+  echo mv ~/$i $PATH_BACKUP
+  [ -f ~/$i ] && mv ~/$i $PATH_BACKUP
 done
 
 # Determine my path 
@@ -30,6 +30,6 @@ sed -i "1d" $ZSHRC
 sed -i "1i\ZSH_PWD=${MY_PATH}" $ZSHRC
 
 # Installing
-echo ln -s $ZSHRC ~/.zshrc
-ln -s $ZSHRC ~/.zshrc
+echo ln -f -s $ZSHRC ~/.zshrc
+ln -f -s $ZSHRC ~/.zshrc
 

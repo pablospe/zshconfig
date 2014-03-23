@@ -15,3 +15,7 @@ You must run two commands:
 Run the folowing command:
 
     sh install.sh
+
+#### The manual way
+
+Modify `ZSH_PWD` variable inside `zshrc` file (with the directory where the repository was cloned),  and create a symbolic link to ~/.zshrc
