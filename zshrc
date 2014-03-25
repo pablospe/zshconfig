@@ -1,5 +1,3 @@
-ZSH_PWD=${MY_PATH}
-
 # Path to your oh-my-zsh configuration.
 export ZSH=$ZSH_PWD/oh-my-zsh
 

@@ -18,4 +18,6 @@ Run the folowing command:
 
 #### The manual way
 
-Modify `ZSH_PWD` variable inside `zshrc` file (with the directory where the repository was cloned),  and create a symbolic link to ~/.zshrc
+Set `ZSH_PWD` variable inside `local.sh` with the folder location (where the repository was cloned),  and create a symbolic link of this file to ~/.zshrc (`ln -s $ZSH_PWD/local.sh ~/.zshrc`).
+
+
