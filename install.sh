@@ -23,11 +23,11 @@ if [ -z "$MY_PATH" ] ; then
 fi
 
 # Source file
-ZSHRC="${MY_PATH}/zshrc"
+ZSHRC="${MY_PATH}/local.sh"
 
-# ZSH_PWD variable inside zshrc (avoiding defaults)
-sed -i "1d" $ZSHRC
-sed -i "1i\ZSH_PWD=${MY_PATH}" $ZSHRC
+# ZSH_PWD variable inside 'local.sh' (avoiding defaults)
+sed -i "3d" $ZSHRC
+sed -i "3i\ZSH_PWD=${MY_PATH}" $ZSHRC
 
 # Installing
 echo ln -f -s $ZSHRC ~/.zshrc
