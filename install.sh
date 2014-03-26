@@ -23,6 +23,7 @@ if [ -z "$MY_PATH" ] ; then
 fi
 
 # Source file
+cd ${MY_PATH}
 ZSHRC="${MY_PATH}/local.sh"
 
 # ZSH_PWD variable inside 'local.sh' (avoiding defaults)
@@ -34,5 +35,10 @@ echo ln -f -s $ZSHRC ~/.zshrc
 ln -f -s $ZSHRC ~/.zshrc
 
 # Ignore local changes
-cd ${MY_PATH} && git update-index --assume-unchanged $ZSHRC
+echo git update-index --assume-unchanged $ZSHRC
+git update-index --assume-unchanged $ZSHRC
+
+# Adding 'pablo' theme to oh-my-zsh/theme
+echo ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
+ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
 

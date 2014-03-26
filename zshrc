@@ -2,7 +2,7 @@
 export ZSH=$ZSH_PWD/oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="robbyrussell"
+ZSH_THEME="pablo"
 
 # Plugins
 plugins=(git)
