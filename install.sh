@@ -33,3 +33,6 @@ sed -i "3i\ZSH_PWD=${MY_PATH}" $ZSHRC
 echo ln -f -s $ZSHRC ~/.zshrc
 ln -f -s $ZSHRC ~/.zshrc
 
+# Ignore local changes
+cd ${MY_PATH} && git update-index --assume-unchanged $ZSHRC
+
