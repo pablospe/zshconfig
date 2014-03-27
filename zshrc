@@ -8,13 +8,21 @@ ZSH_THEME="pablo"
 COMPLETION_WAITING_DOTS="true"
 
 # Plugins
-plugins=(git)
+plugins=(git command-not-found last-working-dir)
 
 # Load Oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Load incremental autocomplete
-source $ZSH_PWD/incr-autocomplete/load.sh
+# User customization (setopt, plugins, etc.)
+source $ZSH_PWD/custom.sh
+
+# Bindings
+source $ZSH_PWD/bindkey.sh
+
+# Alias
+source $ZSH_PWD/alias.sh
+
+# Export
+source $ZSH_PWD/export.sh
+
