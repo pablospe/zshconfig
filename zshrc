@@ -1,6 +1,9 @@
 # Path to your oh-my-zsh configuration.
 export ZSH=$ZSH_PWD/oh-my-zsh
 
+# Add custom completion scripts
+fpath=($ZSH_PWD/zsh-completions/src $fpath)
+
 # Set name of the theme to load.
 ZSH_THEME="pablo"
 
