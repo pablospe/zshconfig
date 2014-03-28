@@ -17,11 +17,11 @@ plugins=(git command-not-found last-working-dir)
 source $ZSH/oh-my-zsh.sh
 
 
-# User customization (setopt, plugins, etc.)
-source $ZSH_PWD/custom.sh
-
 # Bindings
 source $ZSH_PWD/bindkey.sh
+
+# User customization (setopt, plugins, etc.)
+source $ZSH_PWD/custom.sh
 
 # Alias
 source $ZSH_PWD/alias.sh
