@@ -4,3 +4,6 @@
 [submodule "zsh-completions"]
 	path = zsh-completions
 	url = git@github.com:pablospe/zsh-completions.git
+[submodule "zaw"]
+	path = zaw
+	url = git://github.com/zsh-users/zaw.git
