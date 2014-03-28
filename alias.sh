@@ -12,8 +12,11 @@ alias du="du -h --max-depth=1"
 alias df="clear; df -h"
 
 # find
-alias f="noglob ~/bin/find.sh"
-alias f_i="noglob ~/bin/find_i.sh"
+function find_i {
+  echo "Searching:" \""$@"\"" ... "
+  find . -iname "*$@*" | grep -i "$@"
+}
+alias f="find_i"
 alias ff="find . -name"
 
 # Untar
