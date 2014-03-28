@@ -66,6 +66,7 @@ alias axel="axel -a"
 alias pw="pwd | tr -d '\n' | xclip -selection 'clipboard'; pwd"
 
 # Others
+alias cal="cal -3"
 alias alarma="aplay /home/spe/Documents/Sound/finish.wav"
 alias mensaje="notify-send --urgency=critical --expire-time=0 \"ATENCIÓN\" \"Terminó!\" --icon=/usr/share/icons/gnome/32x32/status/important.png"
 alias open_microphone="arecord -f cd -D hw:0,0  | aplay"
