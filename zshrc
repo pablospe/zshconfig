@@ -20,6 +20,9 @@ source $ZSH/oh-my-zsh.sh
 # Bindings
 source $ZSH_PWD/bindkey.sh
 
+# Vi mode
+source $ZSH_PWD/vi-mode.sh
+
 # User customization (setopt, plugins, etc.)
 source $ZSH_PWD/custom.sh
 
