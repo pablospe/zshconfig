@@ -11,7 +11,7 @@ ZSH_THEME="pablo"
 COMPLETION_WAITING_DOTS="true"
 
 # Plugins
-plugins=(git command-not-found last-working-dir)
+plugins=(git gitfast git-extras command-not-found last-working-dir)
 
 # Load Oh-my-zsh
 source $ZSH/oh-my-zsh.sh
