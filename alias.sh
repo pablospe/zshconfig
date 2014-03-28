@@ -11,8 +11,9 @@ if hash ls++ 2>/dev/null; then
   alias ll="ls++ -a --potsf"
 fi
 
-# Less (opensuse alias)
-alias o="less"
+# Using Vim as Pager
+alias vless='/usr/share/vim/vim74/macros/less.sh'
+alias o="vless"      # opensuse alias
 
 # du and df
 alias du="du -h --max-depth=1"
