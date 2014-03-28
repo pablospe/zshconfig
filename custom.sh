@@ -24,8 +24,13 @@ bindkey '^R' zaw-history
 bindkey -M filterselect '^R' down-line-or-history
 bindkey -M filterselect '^S' up-line-or-history
 bindkey -M filterselect '^E' accept-search
+bindkey -M filterselect '^[' accept-search
 
-bindkey -M filterselect '^[^H' backward-delete-word # urxvt:   Alt+BackSpace
+bindkey -M filterselect '^I'   down-line-or-history  # TAB
+bindkey -M filterselect '[Z' up-line-or-history    # Shift+TAB
+
+bindkey -M filterselect '^[^H' backward-delete-word  # urxvt: Alt+BackSpace
+bindkey -M filterselect '^H'   backward-delete-word  # urxvt: C-BS
 
 # setup key accordingly
 [[ -n "${key[Home]}"     ]]  && bindkey -M filterselect "${key[Home]}"     beginning-of-line
