@@ -57,28 +57,6 @@ bindkey "\e[Z" expand-word # Note: Ctrl+'_' for undo
 # Undo
 bindkey "^[u" undo # Alt+u or ESC, u
 
-
-
-##
-## Dircycle
-##
-## A modification of the dircycle plugin: enables cycling through the directory
-## stack using Alt+Left/Right
-##
-
-# Alt+Left
-function insert-cycled-right () { zle push-line; pushd -q ~+0; zle accept-line }
-zle -N insert-cycled-right
-bindkey "^[[1;3C" insert-cycled-right
-
-# Alt+Right
-function insert-cycled-left () { zle push-line; pushd -q -1; zle accept-line }
-zle -N insert-cycled-left
-bindkey "^[[1;3D" insert-cycled-left
-
-# Alt+Down
-# bindkey "^[[1;3B" reverse-menu-complete
-
 # Alt+Up is "cd .."
 function cd-up () { zle push-line; LBUFFER='cd ..'; zle accept-line }
 zle -N cd-up
