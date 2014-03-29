@@ -13,7 +13,7 @@ fi
 
 # Using Vim as Pager
 alias vless='/usr/share/vim/vim74/macros/less.sh'
-alias o="vless"      # opensuse alias
+alias oo="vless"  # 'o' was the alias but used by fasd
 
 # du and df
 alias du="du -h --max-depth=1"
@@ -24,8 +24,7 @@ function find_i {
   echo "Searching:" \""$@"\"" ... "
   find . -iname "*$@*" | grep -i "$@"
 }
-alias f="find_i"
-alias ff="find . -name"
+alias ff="find_i"
 
 # Untar
 alias untar="tar -xvf"
@@ -37,7 +36,6 @@ alias op="xdg-open"
 alias doc="cd ~/Documents"
 alias des="cd ~/Downloads"
 alias D="cd ~/Desktop/"
-alias a="cd ~/Documents/Anotaciones"
 alias W="cd ~/wrk"
 alias kk="cd ~/kk"
 
