@@ -24,7 +24,8 @@ bindkey '^R' zaw-history
 bindkey -M filterselect '^R' down-line-or-history
 bindkey -M filterselect '^S' up-line-or-history
 bindkey -M filterselect '^E' accept-search
-bindkey -M filterselect '^[' accept-search
+bindkey -M filterselect '' accept-search
+bindkey -M filterselect '^[' send-break
 
 bindkey -M filterselect '^I'   down-line-or-history  # TAB
 bindkey -M filterselect '[Z' up-line-or-history    # Shift+TAB
