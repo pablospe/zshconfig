@@ -42,6 +42,10 @@ unfunction zkbd_file; unset keyfile ret
 bindkey "^[OA" up-line-or-history
 bindkey "^[OB" down-line-or-history
 
+# Ctrl+P and Ctrl+N
+bindkey "" history-beginning-search-backward
+bindkey "" history-beginning-search-forward
+
 
 # Enable keybindings that use the Alt key (not working for urxvt)
 # bindkey -m
@@ -64,7 +68,6 @@ bindkey "^[u" undo # Alt+u or ESC, u
 ## 'last-working-dir' plugin. It enables cycling through the directory
 ## stack using Alt+Left/Right
 ##
-## See issue: https://github.com/robbyrussell/oh-my-zsh/issues/2675
 
 # Alt+Left
 function insert-cycled-right () { zle push-line; pushd -q ~+0; zle accept-line }
