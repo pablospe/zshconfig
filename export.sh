@@ -25,3 +25,7 @@ export LESS_TERMCAP_ue=$'\e[00;00m';
 export LESS_TERMCAP_se=$'\e[00;00m';
 # export LESS_TERMCAP_me=$'\e[00;00m';
 # export LESS_TERMCAP_mb=$'\e[00;00m';
+
+# ccache is a compiler cache. It speeds up recompilation by caching previous
+# compilations and detecting when the same compilation is being done again
+#export PATH=/usr/lib/ccache:$PATH
