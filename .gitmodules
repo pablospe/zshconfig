@@ -16,3 +16,6 @@
 [submodule "ls_colors"]
 	path = ls_colors
 	url = git@github.com:trapd00r/LS_COLORS.git
+[submodule "zsh-syntax-highlighting-filetypes"]
+	path = zsh-syntax-highlighting-filetypes
+	url = git@github.com:trapd00r/zsh-syntax-highlighting-filetypes.git

@@ -50,6 +50,9 @@ zstyle ':filter-select' case-insensitive yes
 # zsh-syntax-highlighting
 source $ZSH_PWD/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# zsh-syntax-highlighting-filetypes
+source $ZSH_PWD/zsh-syntax-highlighting-filetypes/zsh-syntax-highlighting-filetypes.zsh
+
 ##
 ## fasd - https://github.com/clvv/fasd
 ##
