@@ -5,7 +5,7 @@ alias ....="cd ../../.."
 alias lsdirs='ls --color -d */'
 
 # Uses ls++ if exists
-# Note: https://github.com/trapd00r/ls--
+# Note: ttps://github.com/pablospe/ls--
 if hash ls++ 2>/dev/null; then
   alias l="ls++ --ptsf"
   alias ll="ls++ -a --potsf"
