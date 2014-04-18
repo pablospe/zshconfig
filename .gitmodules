@@ -13,3 +13,6 @@
 [submodule "fasd"]
 	path = fasd
 	url = git@github.com:clvv/fasd.git
+[submodule "ls_colors"]
+	path = ls_colors
+	url = git@github.com:trapd00r/LS_COLORS.git
