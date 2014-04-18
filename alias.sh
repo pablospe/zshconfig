@@ -18,9 +18,11 @@ eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
 alias vless='/usr/share/vim/vim74/macros/less.sh'
 alias oo="vless"  # 'o' was the alias but used by fasd
 
-# du and df
+# du
 alias du="du -h --max-depth=1"
-alias df="clear; df -h"
+
+# dfc (sudo apt-get install dfc)
+alias df="dfc -f"
 
 # find
 function find_i {
