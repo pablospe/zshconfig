@@ -77,6 +77,9 @@ alias pw="pwd | tr -d '\n' | xclip -selection 'clipboard'; pwd"
 # Ping
 alias ping="ping -c 3"
 
+# Meld
+alias m.="meld ."
+
 # Others
 alias cal="cal -3"
 alias free="free -m"
