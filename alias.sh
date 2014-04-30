@@ -74,6 +74,9 @@ alias axel="axel -a"
 # PWD (and copy to clipboard)
 alias pw="pwd | tr -d '\n' | xclip -selection 'clipboard'; pwd"
 
+# Ping
+alias ping="ping -c 3"
+
 # Others
 alias cal="cal -3"
 alias free="free -m"
