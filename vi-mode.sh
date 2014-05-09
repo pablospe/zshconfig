@@ -5,7 +5,7 @@
 bindkey -v
 
 # 10ms for key sequences. Default is 0.4 seconds
-#KEYTIMEOUT=1
+KEYTIMEOUT=1
 
 # Disable all keybindings that rely on ESC as a prefix
 #bindkey -rpM viins '^['
@@ -77,6 +77,9 @@ if [[ ${zle_ins_more_like_emacs} == 'yes' ]]; then
   
   bindkey -M viins -M vicmd "^F" forward-word  # C-f
 
+  # Ctrl+P and Ctrl+N
+  bindkey -M viins -M vicmd "" history-beginning-search-backward
+  bindkey -M viins -M vicmd "" history-beginning-search-forward
 fi
 
 
