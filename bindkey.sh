@@ -106,6 +106,11 @@ bindkey '^[Oc' forward-word  # urxvt: C-Right
 bindkey "^F" forward-word  # urxvt: C-F
 bindkey "^B" backward-word # urxvt: C-B
 
+# home (ESC 0), end (ESC 4). urxvt
+# Note: remember 'C-A' and ''C-E'
+bindkey "^[0" beginning-of-line
+bindkey "^[4" end-of-line
+
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
 stty -ixon
 
