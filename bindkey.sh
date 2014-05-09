@@ -82,9 +82,8 @@ bindkey "^[[1;3D" insert-cycled-left
 # Alt+Up is "cd .."
 function cd-up () { zle push-line; LBUFFER='cd ..'; zle accept-line }
 zle -N cd-up
-bindkey "^[[1;3A" cd-up # konsole
-bindkey "^[[Á"    cd-up # urxvt
-
+bindkey "^[[1;3A" cd-up # konsole, urxvt
+bindkey "^[h" cd-up     # urxvt (ESC h)
 
 # Alt+BackSpace delete (big) word. Note: it is different than Ctrl+W
 function backwards-delete-part () {
@@ -95,7 +94,8 @@ zle -N backwards-delete-part
 
 bindkey "^[^?" backwards-delete-part # konsole: Alt+BackSpace
 bindkey '^[^H' backwards-delete-part # urxvt:   Alt+BackSpace
-bindkey '^H'   backwards-delete-part # C-H
+
+bindkey '^H' backward-delete-char   # C-H: Backspace
 
 bindkey "^[[3^" delete-word  # urxvt: C-delete
 bindkey "^[[3"  delete-word  # urxvt: Alt-delete
