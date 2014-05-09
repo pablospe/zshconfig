@@ -102,7 +102,9 @@ bindkey "^[[3"  delete-word  # urxvt: Alt-delete
 
 bindkey '^[Od' backward-word # urxvt: C-Left
 bindkey '^[Oc' forward-word  # urxvt: C-Right
-bindkey "^F"   forward-word  # urxvt: C-f
+
+bindkey "^F" forward-word  # urxvt: C-F
+bindkey "^B" backward-word # urxvt: C-B
 
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
 stty -ixon
