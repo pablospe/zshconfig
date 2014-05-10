@@ -120,6 +120,15 @@ bindkey "" transpose-words2 # urxvt: C-T
 bindkey "^[0" beginning-of-line
 bindkey "^[4" end-of-line
 
+# C-Y: copy line to clipboard
+x-yank () {
+  echo -n $BUFFER | xclip -selection 'clipboard'
+  #echo -n $BUFFER | xsel -i
+  #zle yank
+}
+zle -N x-yank
+bindkey -e '^Y' x-yank
+
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
 stty -ixon
 
