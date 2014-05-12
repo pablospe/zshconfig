@@ -108,7 +108,7 @@ __gss() {
   GIT_UNTRACKED=$(echo $INDEX | grep -E '^\?\? ')
 
   # Print categories with different color and symbols
-  __git_print_status ● $fg_bold[cyan]    "Stashed changes" $GIT_STAGED
+  __git_print_status ● $fg_bold[cyan]    "Staged changes"  $GIT_STAGED
   __git_print_status ✚ $fg_bold[yellow]  "Modified files"  $GIT_MODIFIED
   __git_print_status ✖ $fg_bold[red]     "Deleted files"   $GIT_DELETED
   __git_print_status ➜ $fg_bold[magenta] "Renamed files"   $GIT_RENAMED
