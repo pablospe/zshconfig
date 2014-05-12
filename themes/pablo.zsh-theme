@@ -1,4 +1,4 @@
-# Based on few oh-my-zsh themes: 'lukerandall', 'kphoen', 'Soliah', 'smt'
+# Based on few oh-my-zsh themes: 'lukerandall', 'kphoen', 'Soliah', 'smt', 'sorin'
 
 # Color shortcuts
 R=$fg_bold[red]
@@ -27,8 +27,14 @@ local return_code="%(?..%{$R%}%? ↵%{$RESET%})"
 # Some ideas from: https://github.com/olivierverdier/zsh-git-prompt
 #
 function git_prompt() {
-  # Number of staged files, modified files, etc.
+  # Git status procelain
   INDEX=$(git status --porcelain -b 2>/dev/null)
+  if [ $? -ne 0 ]; then
+    # It is not a git repo
+    return
+  fi
+
+  # Number of staged files, modified files, etc.
   GIT_STAGED=$(echo $INDEX | grep -E '^A |^M ' | wc -l)
   GIT_DELETED=$(echo $INDEX | grep -E '^ D |^D  |^AD ' | wc -l)
   GIT_RENAMED=$(echo $INDEX | grep '^R  '  | wc -l)
@@ -42,10 +48,6 @@ function git_prompt() {
 
   # Modifiers will be separated by $SP
   SP=' '
-
-  # Variables used by 'git_prompt_status'
-  ZSH_THEME_GIT_PROMPT_PREFIX="$B($RED"
-  ZSH_THEME_GIT_PROMPT_SUFFIX="$B)$RESET"
 
   ZSH_THEME_GIT_PROMPT_UNTRACKED="$SP$RED…${GIT_UNTRACKED}$RESET"
   ZSH_THEME_GIT_PROMPT_ADDED="$SP$C●${GIT_STAGED}$RESET"
@@ -66,15 +68,12 @@ function git_prompt() {
   ZSH_THEME_GIT_PROMPT_SHA_BEFORE="$M"
   ZSH_THEME_GIT_PROMPT_SHA_AFTER="$RESET"
 
-  # branch name
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-
   # Initial git status using variables above
-  GIT_STATUS=$(git_prompt_status)
+  STATUS=$(git_prompt_status)
 
   # remote_status or git_dirty
-  if [[ -n $GIT_STATUS ]]; then
-    STATUS="$(git_remote_status)$GIT_STATUS"
+  if [[ -n $STATUS ]]; then
+    STATUS="$(git_remote_status)$STATUS"
   else
     STATUS="$(parse_git_dirty)"
   fi
@@ -84,7 +83,11 @@ function git_prompt() {
 
   # (BRANCH|HASH|STATUS)
   BAR="$B|"
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$BAR$(git_prompt_short_sha)$BAR$STATUS$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  PREFIX="$B($RED"
+  SUFFIX="$B)$RESET"
+  BRANCH=$(git symbolic-ref HEAD --short 2>/dev/null) && BRANCH=$BRANCH$BAR
+  HASH=$(git_prompt_short_sha)
+  echo "$PREFIX${BRANCH}${HASH}$BAR$STATUS$SUFFIX"
 }
 
 # PROMT
