@@ -86,8 +86,8 @@ function git_prompt() {
   PREFIX="$B($RED"
   SUFFIX="$B)$RESET"
   BRANCH=$(git symbolic-ref HEAD --short 2>/dev/null) && BRANCH=$BRANCH$BAR
-  HASH=$(git_prompt_short_sha)
-  echo "$PREFIX${BRANCH}${HASH}$BAR$STATUS$SUFFIX"
+  HASH=$(git_prompt_short_sha) && HASH=$HASH$BAR
+  echo "$PREFIX${BRANCH}${HASH}$STATUS$SUFFIX"
 }
 
 # PROMT
