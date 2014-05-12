@@ -92,3 +92,39 @@ alias LOG="svn log -r 0:HEAD | less"
 # git-flow: alias with completion
 alias gf='git-flow'
 
+# gss: git status alias
+# Note: colors same as in the prompt
+alias gss="__gss"
+
+__gss() {
+  INDEX=$(git status --porcelain -b 2>/dev/null)
+
+  # Split git status in categories
+  GIT_STAGED=$(echo $INDEX | grep -E '^A |^M ')
+  GIT_MODIFIED=$(echo $INDEX | grep -E '^ M |^AM |^ T |^MM ')
+  GIT_DELETED=$(echo $INDEX | grep -E '^ D |^D  |^AD ')
+  GIT_RENAMED=$(echo $INDEX | grep '^R  ' )
+  GIT_UNMERGED=$(echo $INDEX | grep '^UU ')
+  GIT_UNTRACKED=$(echo $INDEX | grep -E '^\?\? ')
+
+  # Print categories with different color and symbols
+  __git_print_status ● $fg_bold[cyan]    "Stashed changes" $GIT_STAGED
+  __git_print_status ✚ $fg_bold[yellow]  "Modified files"  $GIT_MODIFIED
+  __git_print_status ✖ $fg_bold[red]     "Deleted files"   $GIT_DELETED
+  __git_print_status ➜ $fg_bold[magenta] "Renamed files"   $GIT_RENAMED
+  __git_print_status ═ $fg_bold[yellow]  "Unmerged files"  $GIT_UNMERGED
+  __git_print_status … $fg[red]          "Untracked files" $GIT_UNTRACKED
+}
+
+__git_print_status() {
+  str=$4
+  if [[ -n $str ]]; then
+    symbol=$1
+    color=$2
+    echo -n ${color}
+    echo $3:
+    # Getting last column and adding symbol at the beginning
+    echo $str | sed -e 's/^.* //' | sed "s/^/\t\t${symbol} /"
+    echo -n $reset_color
+  fi
+}
