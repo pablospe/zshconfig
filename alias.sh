@@ -89,9 +89,6 @@ alias open_microphone="arecord -f cd -D hw:0,0  | aplay"
 alias temp="cat /proc/acpi/thermal_zone/THM/temperature"
 alias LOG="svn log -r 0:HEAD | less"
 
-# git-flow: alias with completion
-alias gf='git-flow'
-
 # gss: git status alias
 # Note: colors same as in the prompt
 alias gss="__gss"
