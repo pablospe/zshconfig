@@ -1,6 +1,7 @@
 # Based on few oh-my-zsh themes: 'lukerandall', 'kphoen', 'Soliah', 'smt', 'sorin'
+# And some ideas from: https://github.com/olivierverdier/zsh-git-prompt
 
-# Color shortcuts
+# Color variables
 R=$fg_bold[red]
 G=$fg_bold[green]
 M=$fg_bold[magenta]
@@ -8,12 +9,25 @@ Y=$fg_bold[yellow]
 B=$fg_bold[blue]
 C=$fg_bold[cyan]
 RED=$fg[red]
+GREEN=$fg[green]
+MAGENTA=$fg[magenta]
 YELLOW=$fg[yellow]
+BLUE=$fg[blue]
+CYAN=$fg[cyan]
 RESET=$reset_color
+
 
 # Return code
 local return_code="%(?..%{$R%}%? ↵%{$RESET%})"
 
+# PROMT
+PROMPT=$'%{$C%}%n@%M%{$RESET%} %{$YELLOW%}%d%{$RESET%} $(git_prompt)\n » '
+
+# RPS1
+RPS1="${return_code} %{$fg_bold[black]%}[ %T - `date '+%d/%m'` ]%{$RESET%}"
+
+
+#
 # Git prompt info
 #
 # '●': staged,  '✚': changed, '…': untracked,
@@ -23,8 +37,6 @@ local return_code="%(?..%{$R%}%? ↵%{$RESET%})"
 # (status|21ab52b|●2): on branch status, 2 files staged
 # (master|70c2952|✖2 ✚3): on branch master, 2 files deleted, 3 files changed
 # (experimental|70c2952|↓2 ↑3 ✔): on branch experimental; your branch has diverged by 3 commits, remote by 2 commits; the repository is otherwise clean
-#
-# Some ideas from: https://github.com/olivierverdier/zsh-git-prompt
 #
 function git_prompt() {
   # Git status procelain
@@ -90,8 +102,39 @@ function git_prompt() {
   echo "$PREFIX${BRANCH}${HASH}$STATUS$SUFFIX"
 }
 
-# PROMT
-PROMPT=$'%{$C%}%n@%M%{$RESET%} %{$YELLOW%}%d%{$RESET%} $(git_prompt)\n » '
 
-# RPS1
-RPS1="${return_code} %{$fg_bold[black]%}[ %T - `date '+%d/%m'` ]%{$RESET%}"
+#
+# Alias gss: git status
+#
+alias gss="__gss"
+
+__gss() {
+  INDEX=$(git status --porcelain -b 2>/dev/null)
+
+  # Split git status in categories
+  GIT_STAGED=$(echo $INDEX | grep -E '^A |^M ')
+  GIT_MODIFIED=$(echo $INDEX | grep -E '^ M |^AM |^ T |^MM ')
+  GIT_DELETED=$(echo $INDEX | grep -E '^ D |^D  |^AD ')
+  GIT_RENAMED=$(echo $INDEX | grep '^R  ' )
+  GIT_UNMERGED=$(echo $INDEX | grep '^UU ')
+  GIT_UNTRACKED=$(echo $INDEX | grep -E '^\?\? ')
+
+  # Print categories with different color and symbols
+  __git_print_status ● $C   "Staged changes"  $GIT_STAGED
+  __git_print_status ✚ $Y   "Modified files"  $GIT_MODIFIED
+  __git_print_status ✖ $R   "Deleted files"   $GIT_DELETED
+  __git_print_status ➜ $M   "Renamed files"   $GIT_RENAMED
+  __git_print_status ═ $Y   "Unmerged files"  $GIT_UNMERGED
+  __git_print_status … $RED "Untracked files" $GIT_UNTRACKED
+}
+
+__git_print_status() {
+  str=$4
+  if [[ -n $str ]]; then
+    symbol=$1
+    color=$2
+    echo $color$3:
+    # Getting last column and adding symbol at the beginning
+    echo $str$reset_color | sed -e 's/^.* //' | sed "s/^/\t\t${symbol} /"
+  fi
+}
