@@ -1,5 +1,8 @@
 # Based on few oh-my-zsh themes: 'lukerandall', 'kphoen', 'Soliah', 'smt', 'sorin'
+#
 # And some ideas from: https://github.com/olivierverdier/zsh-git-prompt
+#
+# Self-contained: it doesn't depends on 'oh-my-zsh/lib/git.zsh'
 
 # Color variables
 R=$fg_bold[red]
@@ -16,7 +19,6 @@ BLUE=$fg[blue]
 CYAN=$fg[cyan]
 RESET=$reset_color
 
-
 # Return code
 local return_code="%(?..%{$R%}%? ↵%{$RESET%})"
 
@@ -26,90 +28,67 @@ PROMPT=$'%{$C%}%n@%M%{$RESET%} %{$YELLOW%}%d%{$RESET%} $(git_prompt)\n » '
 # RPS1
 RPS1="${return_code} %{$fg_bold[black]%}[ %T - `date '+%d/%m'` ]%{$RESET%}"
 
-
 #
 # Git prompt info
 #
 # '●': staged,  '✚': changed, '…': untracked,
 # '✖': deleted, '➜': renamed, '═': unmerged
 #
-# (master|70c2952|↑3 ✚1): on branch master, ahead of remote by 3 commits, 1 file changed but not staged
-# (status|21ab52b|●2): on branch status, 2 files staged
-# (master|70c2952|✖2 ✚3): on branch master, 2 files deleted, 3 files changed
-# (experimental|70c2952|↓2 ↑3 ✔): on branch experimental; your branch has diverged by 3 commits, remote by 2 commits; the repository is otherwise clean
+# (master|34r25ab|✔): on branch master; clean
+# (master|70c2952|↑3 ✚1): on branch master, ahead of remote by 3 commits,
+#                         1 file changed but not staged.
+# (status|21ab52b|●2 _3): on branch status, 2 files staged, 3 files untracked.
+# (master|70c2952|✖2 ✚3): on branch master, 2 files deleted, 3 files changed.
+# (experimental|70c2952|▾▴ ↓2 ↑3): on branch experimental; your branch has
+#                                  diverged by 3 commits, remote by 2 commits
 #
 function git_prompt() {
-  # Git status procelain
-  INDEX=$(git status --porcelain -b 2>/dev/null)
+  # Git modifiers will be separated by ${SP} (empty or only one character)
+  SP=' '
+
+  # Git status (whith <symbol><number>)
+  STATUS="$(_git_status _git_print_symbols)"
+
+  # Check if it is a git repository
   if [ $? -ne 0 ]; then
-    # It is not a git repo
     return
   fi
 
-  # Number of staged files, modified files, etc.
-  GIT_STAGED=$(echo $INDEX | grep -E '^A |^M ' | wc -l)
-  GIT_DELETED=$(echo $INDEX | grep -E '^ D |^D  |^AD ' | wc -l)
-  GIT_RENAMED=$(echo $INDEX | grep '^R  '  | wc -l)
-  GIT_MODIFIED=$(echo $INDEX | grep -E '^ M |^AM |^ T |^MM ' | wc -l)
-  GIT_UNMERGED=$(echo $INDEX | grep '^UU ' | wc -l)
-  GIT_UNTRACKED=$(echo $INDEX | grep -E '^\?\? ' | wc -l)
+  # Git remote status (ahead/behind/diverged)
+  STATUS="$(_git_remote_status)$STATUS"
 
-  # Number of commit 'ahead' and 'behind' current branch
-  GIT_AHEAD=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-  GIT_BEHIND=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-
-  # Modifiers will be separated by $SP
-  SP=' '
-
-  ZSH_THEME_GIT_PROMPT_UNTRACKED="$SP$RED…${GIT_UNTRACKED}$RESET"
-  ZSH_THEME_GIT_PROMPT_ADDED="$SP$C●${GIT_STAGED}$RESET"
-  ZSH_THEME_GIT_PROMPT_MODIFIED="$SP$Y✚${GIT_MODIFIED}$RESET"
-  ZSH_THEME_GIT_PROMPT_DELETED="$SP$R✖${GIT_DELETED}$RESET"
-  ZSH_THEME_GIT_PROMPT_RENAMED="$SP$M➜${GIT_RENAMED}$RESET"
-  ZSH_THEME_GIT_PROMPT_UNMERGED="$SP$Y═${GIT_UNMERGED}$RESET"
-
-  #ZSH_THEME_GIT_PROMPT_DIRTY="$SP$R⚡$RESET"
-  ZSH_THEME_GIT_PROMPT_DIRTY=""
-  ZSH_THEME_GIT_PROMPT_CLEAN="$SP$G✔$RESET"
-
-  ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="$SP$YELLOW⬇${GIT_BEHIND}$RESET"
-  ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="$SP$G⬆${GIT_AHEAD}$RESET"
-  ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="$SP$R▾▴$RESET${ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE}${ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE}"
-
-  # Format git_prompt_short_sha()
-  ZSH_THEME_GIT_PROMPT_SHA_BEFORE="$M"
-  ZSH_THEME_GIT_PROMPT_SHA_AFTER="$RESET"
-
-  # Initial git status using variables above
-  STATUS=$(git_prompt_status)
-
-  # remote_status or git_dirty
-  if [[ -n $STATUS ]]; then
-    STATUS="$(git_remote_status)$STATUS"
-  else
-    STATUS="$(parse_git_dirty)"
-  fi
+  # Check is the working directory is clean.
+  #
+  # Note: the meaning of 'clean' depends of the following variable: "true", when
+  #       there is no more commits; and "false", completely clean (no commits,
+  #       no untracked files).
+  #
+  #DISABLE_UNTRACKED_FILES_DIRTY=true
+  STATUS="$STATUS$(_git_check_clean)"
 
   # Remove extra spaces
-  STATUS=$STATUS[2,-1]
+  if [[ -n $SP ]]; then
+    STATUS=$STATUS[2,-1]
+  fi
 
   # (BRANCH|HASH|STATUS)
   BAR="$B|"
   PREFIX="$B($RED"
   SUFFIX="$B)$RESET"
-  BRANCH=$(git symbolic-ref HEAD --short 2>/dev/null) && BRANCH=$BRANCH$BAR
-  HASH=$(git_prompt_short_sha) && HASH=$HASH$BAR
-  echo "$PREFIX${BRANCH}${HASH}$STATUS$SUFFIX"
+  BRANCH=$(command git symbolic-ref HEAD --short 2>/dev/null) && BRANCH=$BRANCH$BAR
+  HASH=$(command git rev-parse --short HEAD 2> /dev/null) && HASH=$HASH$BAR
+  echo "${PREFIX}${BRANCH}${HASH}${STATUS}${SUFFIX}"
 }
 
+_git_status() {
+  # Git status procelain
+  SUBMODULE_SYNTAX="--ignore-submodules"
+  INDEX=$(command git status --porcelain ${SUBMODULE_SYNTAX} 2>/dev/null)
 
-#
-# Alias gss: git status
-#
-alias gss="__gss"
-
-__gss() {
-  INDEX=$(git status --porcelain -b 2>/dev/null)
+  # Check if it is a git repository (checked twice to make it work with 'gss')
+  if [ $? -ne 0 ]; then
+    return $((-1))
+  fi
 
   # Split git status in categories
   GIT_STAGED=$(echo $INDEX | grep -E '^A |^M ')
@@ -119,16 +98,27 @@ __gss() {
   GIT_UNMERGED=$(echo $INDEX | grep '^UU ')
   GIT_UNTRACKED=$(echo $INDEX | grep -E '^\?\? ')
 
-  # Print categories with different color and symbols
-  __git_print_status ● $C   "Staged changes"  $GIT_STAGED
-  __git_print_status ✚ $Y   "Modified files"  $GIT_MODIFIED
-  __git_print_status ✖ $R   "Deleted files"   $GIT_DELETED
-  __git_print_status ➜ $M   "Renamed files"   $GIT_RENAMED
-  __git_print_status ═ $Y   "Unmerged files"  $GIT_UNMERGED
-  __git_print_status … $RED "Untracked files" $GIT_UNTRACKED
+  # Categories with different color and symbols (only can be empty the last arg)
+  func_name=$1
+  $func_name ● $C   "Staged changes"  $GIT_STAGED
+  $func_name ✚ $Y   "Modified files"  $GIT_MODIFIED
+  $func_name ✖ $R   "Deleted files"   $GIT_DELETED
+  $func_name ➜ $M   "Renamed files"   $GIT_RENAMED
+  $func_name ═ $Y   "Unmerged files"  $GIT_UNMERGED
+  $func_name … $RED "Untracked files" $GIT_UNTRACKED
 }
 
-__git_print_status() {
+_git_print_symbols() {
+  str=$4
+  if [[ -n $str ]]; then
+    symbol=$1
+    color=$2
+    number=$(echo $str | wc -l)
+    echo -n ${SP}${color}${symbol}${number}${reset_color}
+  fi
+}
+
+_git_print_category() {
   str=$4
   if [[ -n $str ]]; then
     symbol=$1
@@ -138,3 +128,55 @@ __git_print_status() {
     echo $str$reset_color | sed -e 's/^.* //' | sed "s/^/\t\t${symbol} /"
   fi
 }
+
+# Checks if the working tree is dirty
+_git_check_clean() {
+  SUBMODULE_SYNTAX='--ignore-submodules=dirty'
+
+  if [[ "$DISABLE_UNTRACKED_FILES_DIRTY" == "true" ]]; then
+    GIT_STATUS=$(command git status -s ${SUBMODULE_SYNTAX} -uno 2>/dev/null | tail -n1)
+  else
+    GIT_STATUS=$(command git status -s ${SUBMODULE_SYNTAX} 2>/dev/null | tail -n1)
+  fi
+
+  if [[ -z $GIT_STATUS ]]; then
+    GIT_PROMPT_CLEAN="$SP$G✔$RESET"
+    echo $GIT_PROMPT_CLEAN
+  else
+    #GIT_PROMPT_DIRTY="$SP$R⚡$RESET"
+    echo $GIT_PROMPT_DIRTY
+  fi
+}
+
+# Get the difference between the local and remote branches
+_git_remote_status() {
+  remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+  if [[ -n ${remote} ]] ; then
+
+    # Number of commits 'ahead' and 'behind' (current branch)
+    GIT_AHEAD=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    GIT_BEHIND=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+
+    # Variables
+    GIT_PROMPT_BEHIND="$SP$YELLOW⬇${GIT_BEHIND}$RESET"
+    GIT_PROMPT_AHEAD="$SP$G⬆${GIT_AHEAD}$RESET"
+    GIT_PROMPT_DIVERGED="$SP$R▾▴$RESET${GIT_PROMPT_AHEAD}${GIT_PROMPT_BEHIND}"
+
+    # Ahead, Behind or Diverged
+    if [ $GIT_AHEAD -eq 0 ] && [ $GIT_BEHIND -gt 0 ]
+    then
+      echo $GIT_PROMPT_BEHIND
+    elif [ $GIT_AHEAD -gt 0 ] && [ $GIT_BEHIND -eq 0 ]
+    then
+      echo $GIT_PROMPT_AHEAD
+    elif [ $GIT_AHEAD -gt 0 ] && [ $GIT_BEHIND -gt 0 ]
+    then
+      echo $GIT_PROMPT_DIVERGED
+    fi
+  fi
+}
+
+#
+# Alias gss: git status
+#
+alias gss="_git_status _git_print_category"
