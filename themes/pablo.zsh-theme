@@ -57,13 +57,7 @@ function git_prompt() {
   # Git remote status (ahead/behind/diverged)
   STATUS="$(_git_remote_status)$STATUS"
 
-  # Check is the working directory is clean.
-  #
-  # Note: the meaning of 'clean' depends of the following variable: "true", when
-  #       there is no more commits; and "false", completely clean (no commits,
-  #       no untracked files).
-  #
-  #DISABLE_UNTRACKED_FILES_DIRTY=true
+  # Check if the working tree is clean
   STATUS="$STATUS$(_git_check_clean)"
 
   # Remove extra spaces
@@ -129,22 +123,12 @@ _git_print_category() {
   fi
 }
 
-# Checks if the working tree is dirty
+# Checks if the working tree is clean
 _git_check_clean() {
-  SUBMODULE_SYNTAX='--ignore-submodules=dirty'
-
-  if [[ "$DISABLE_UNTRACKED_FILES_DIRTY" == "true" ]]; then
-    GIT_STATUS=$(command git status -s ${SUBMODULE_SYNTAX} -uno 2>/dev/null | tail -n1)
-  else
-    GIT_STATUS=$(command git status -s ${SUBMODULE_SYNTAX} 2>/dev/null | tail -n1)
-  fi
-
-  if [[ -z $GIT_STATUS ]]; then
-    GIT_PROMPT_CLEAN="$SP$G✔$RESET"
-    echo $GIT_PROMPT_CLEAN
-  else
-    #GIT_PROMPT_DIRTY="$SP$R⚡$RESET"
-    echo $GIT_PROMPT_DIRTY
+  if [[ -z $STATUS ]]; then
+    echo "$SP$G✔$RESET"   # clean
+#   else
+#     echo "$SP$R⚡$RESET" # dirty
   fi
 }
 
