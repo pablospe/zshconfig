@@ -70,7 +70,7 @@ function git_prompt() {
   PREFIX="$B($RED"
   SUFFIX="$B)$RESET"
   BRANCH=$(command git symbolic-ref HEAD --short 2>/dev/null) && BRANCH=$BRANCH$BAR
-  HASH=$(command git rev-parse --short HEAD 2> /dev/null) && HASH=$HASH$BAR
+  HASH=$(command git rev-parse --short HEAD 2> /dev/null) && HASH=$M$HASH$BAR
   echo "${PREFIX}${BRANCH}${HASH}${STATUS}${SUFFIX}"
 }
 
@@ -142,7 +142,7 @@ _git_remote_status() {
     GIT_BEHIND=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
 
     # Variables
-    GIT_PROMPT_BEHIND="$SP$YELLOW⬇${GIT_BEHIND}$RESET"
+    GIT_PROMPT_BEHIND="$SP$M⬇${GIT_BEHIND}$RESET"
     GIT_PROMPT_AHEAD="$SP$G⬆${GIT_AHEAD}$RESET"
     GIT_PROMPT_DIVERGED="$SP$R▾▴$RESET${GIT_PROMPT_AHEAD}${GIT_PROMPT_BEHIND}"
 
