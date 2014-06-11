@@ -16,6 +16,10 @@ plugins=(git git-extras git-flow command-not-found web-search last-working-dir)
 # Load Oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
+# ROS
+#source /opt/ros/<distro>/setup.zsh
+#export ROS_MASTER_URI=http://192.168.0.100:11311
+source ~/catkin_ws/devel/setup.zsh
 
 # Bindings
 source $ZSH_PWD/bindkey.sh
@@ -31,4 +35,3 @@ source $ZSH_PWD/alias.sh
 
 # Export
 source $ZSH_PWD/export.sh
-
