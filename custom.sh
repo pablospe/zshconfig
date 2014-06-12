@@ -2,6 +2,9 @@
 setopt share_history
 setopt HIST_IGNORE_ALL_DUPS
 
+# Enter directory without 'cd'
+setopt auto_cd
+
 # Needed for dircycle implementation (see alias.sh)
 setopt autopushd pushdsilent pushdtohome
 
