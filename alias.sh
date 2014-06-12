@@ -63,6 +63,9 @@ function p() {
   ps aux | grep -v grep | grep "$@"
 }
 
+# ps (forest)
+alias ps='ps f'
+
 # mkdir and enter
 function mkdircd () {
   mkdir $1; cd $1
