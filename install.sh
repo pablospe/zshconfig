@@ -9,14 +9,14 @@ FILES='.zshrc'
 # Create backup
 PATH_BACKUP=~/backup/
 echo mkdir -p $PATH_BACKUP
-mkdir -p $PATH_BACKUP 
+mkdir -p $PATH_BACKUP
 
 for i in $FILES; do
   echo mv ~/$i $PATH_BACKUP
   [ -f ~/$i ] && mv ~/$i $PATH_BACKUP
 done
 
-# Determine my path 
+# Determine my path
 MY_PATH="`dirname \"$0\"`"              # relative
 MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
 if [ -z "$MY_PATH" ] ; then
@@ -44,4 +44,3 @@ git update-index --assume-unchanged $ZSHRC
 # Adding 'pablo' theme to oh-my-zsh/theme
 echo ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
 ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
-
