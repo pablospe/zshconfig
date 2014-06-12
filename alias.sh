@@ -80,6 +80,9 @@ alias ping="ping -c 3"
 # Meld
 alias m.="meld ."
 
+# Catkin
+alias cm="catkin_make"
+
 # Others
 alias cal="cal -3"
 alias free="free -m"
