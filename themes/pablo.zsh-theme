@@ -69,7 +69,7 @@ function git_prompt() {
   BAR="$B|"
   PREFIX="$B($RED"
   SUFFIX="$B)$RESET"
-  BRANCH=$(command git symbolic-ref HEAD --short 2>/dev/null) && BRANCH=$BRANCH$BAR
+  BRANCH=$(command git rev-parse --abbrev-ref HEAD 2>/dev/null) && BRANCH=$BRANCH$BAR
   HASH=$(command git rev-parse --short HEAD 2> /dev/null) && HASH=$M$HASH$BAR
   echo "${PREFIX}${BRANCH}${HASH}${STATUS}${SUFFIX}"
 }
