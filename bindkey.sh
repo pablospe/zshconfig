@@ -35,7 +35,7 @@ if [[ ${use_zkbd} == 'yes' ]]; then
     ret=$?
   fi
   if [[ ${ret} -eq 0 ]] ; then
-    echo 'Loding setup keys using zkbd file:' $keyfile
+    #echo 'Loding setup keys using zkbd file:' $keyfile
     source "${keyfile}"
   else
     echo 'Failed to setup keys using zkbd.'
