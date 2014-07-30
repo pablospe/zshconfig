@@ -25,7 +25,9 @@ alias du="du -h --max-depth=1"
 alias cdu="cdu -i -s -dh"
 
 # dfc (sudo apt-get install dfc)
-alias df="dfc -f"
+if hash dfc 2>/dev/null; then
+  alias df="dfc -f"
+fi
 
 # Colorized cat (sudo apt-get install python-pygments)
 alias ccat='pygmentize -O style=monokai -f console256 -g'
