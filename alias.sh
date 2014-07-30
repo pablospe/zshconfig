@@ -34,7 +34,6 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 
 # find
 function find_i {
-  echo "Searching:" \""$@"\"" ... "
   find . -iname "*$@*" | grep -i "$@"
 }
 alias ff="find_i"
