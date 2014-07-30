@@ -51,9 +51,13 @@ bindkey "" history-beginning-search-forward
 # bindkey -m
 
 # Alt+s or ESC, s: inserts "sudo " at the start of line:
-function insert-sudo () { zle beginning-of-line; zle -U "sudo " }
-zle -N insert-sudo
-bindkey "^[s" insert-sudo
+function sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+    zle end-of-line
+}
+zle -N sudo-command-line
+bindkey "^[s" sudo-command-line
 
 # Shift+Tab
 bindkey "\e[Z" expand-word # Note: Ctrl+'_' for undo
