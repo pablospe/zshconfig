@@ -76,7 +76,7 @@ function mkdircd () {
 alias axel="axel -a"
 
 # PWD (and copy to clipboard)
-alias pw="pwd | tr -d '\n' | xclip -selection 'clipboard'; pwd"
+alias pw="pwd | tr -d '\n' | xsel -ib; pwd"
 
 # Ping
 alias ping="ping -c 3"
