@@ -7,7 +7,7 @@ export GREP_COLOR='1;32'
 
 # http://cwrapper.sourceforge.net/
 # Note: before 'colorgcc'
-export PATH=/usr/local/lib/cw:$PATH
+# export PATH=/usr/local/lib/cw:$PATH
 
 ##
 ## colorgcc
