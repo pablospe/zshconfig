@@ -1,31 +1,47 @@
 ##
 ## Bindings
 ##
-## Note: http://zshwiki.org/home/zle/bindkeys
-##
 
-autoload zkbd
-function zkbd_file() {
-  [[ -f ~/.zkbd/${TERM}-${VENDOR}-${OSTYPE} ]] && printf '%s' ~/".zkbd/${TERM}-${VENDOR}-${OSTYPE}" && return 0
-  [[ -f ~/.zkbd/${TERM}-${DISPLAY}          ]] && printf '%s' ~/".zkbd/${TERM}-${DISPLAY}"          && return 0
-  return 1
-}
+#
+# zkbd - special keys solution
+#
+# If you use several different terminal emulators, it's likely,
+# that you've run into the problem, that pressing a special key
+# like PageDown will just display a tilde instead of doing what
+# it's supposed to.
+#
+# There is a function described in zshcontrib(1) that reads and
+# stores keydefinitions for special keys, if it recognizes a terminal
+#
+# Link: http://zshwiki.org/home/zle/bindkeys
+#
 
-[[ ! -d ~/.zkbd ]] && mkdir ~/.zkbd
-keyfile=$(zkbd_file)
-ret=$?
-if [[ ${ret} -ne 0 ]]; then
-  zkbd
+use_zkbd='no'
+
+if [[ ${use_zkbd} == 'yes' ]]; then
+  autoload zkbd
+  function zkbd_file() {
+    [[ -f ~/.zkbd/${TERM}-${VENDOR}-${OSTYPE} ]] && printf '%s' ~/".zkbd/${TERM}-${VENDOR}-${OSTYPE}" && return 0
+    [[ -f ~/.zkbd/${TERM}-${DISPLAY}          ]] && printf '%s' ~/".zkbd/${TERM}-${DISPLAY}"          && return 0
+    return 1
+  }
+
+  [[ ! -d ~/.zkbd ]] && mkdir ~/.zkbd
   keyfile=$(zkbd_file)
   ret=$?
+  if [[ ${ret} -ne 0 ]]; then
+    zkbd
+    keyfile=$(zkbd_file)
+    ret=$?
+  fi
+  if [[ ${ret} -eq 0 ]] ; then
+    echo 'Loding setup keys using zkbd file:' $keyfile
+    source "${keyfile}"
+  else
+    echo 'Failed to setup keys using zkbd.'
+  fi
+  unfunction zkbd_file; unset keyfile ret
 fi
-if [[ ${ret} -eq 0 ]] ; then
-#   echo 'Loding setup keys using zkbd file:' $keyfile
-  source "${keyfile}"
-else
-  echo 'Failed to setup keys using zkbd.'
-fi
-unfunction zkbd_file; unset keyfile ret
 
 # setup key accordingly
 [[ -n "${key[Home]}"     ]]  && bindkey "${key[Home]}"     beginning-of-line
