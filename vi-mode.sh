@@ -41,40 +41,40 @@ if [[ ${zle_ins_more_like_emacs} == 'yes' ]]; then
   [[ -n "${key[PageDown]}" ]]  && bindkey -M viins -M vicmd "${key[PageDown]}" history-beginning-search-forward
   [[ -n "${key[Left]}"     ]]  && bindkey -M viins -M vicmd "${key[Left]}"     backward-char
   [[ -n "${key[Right]}"    ]]  && bindkey -M viins -M vicmd "${key[Right]}"    forward-char
-  
+
   # Shift+Tab
   bindkey -M viins -M vicmd "\e[Z" expand-word # Note: Ctrl+'_' for undo
-  
+
   # Alt+Up is "cd .."
   function cd-up () { zle push-line; LBUFFER='cd ..'; zle accept-line }
   zle -N cd-up
   bindkey -M viins -M vicmd "^[[1;3A"  cd-up # konsole
   bindkey -M viins -M vicmd "^[[Ã" cd-up # urxvt
-  
-  
+
+
   # Alt+BackSpace delete (big) word. Note: it is different than Ctrl+W
   function backwards-delete-part () {
     local sep=" :"
     LBUFFER=${(M)${LBUFFER%[$sep]}##*[$sep]}
   }
   zle -N backwards-delete-part
-  
+
   bindkey -M viins -M vicmd '^?'   backward-delete-char  # urxvt:   BS
   bindkey -M viins -M vicmd '^H'   backwards-delete-part # urxvt:   C-BS
   bindkey -M viins -M vicmd '^[^H' backwards-delete-part # urxvt:   Alt-BS
-  
+
   bindkey -M viins -M vicmd "^[[3^" delete-word  # urxvt: C-delete
   bindkey -M viins -M vicmd "^[[3"  delete-word  # urxvt: Alt-delete
-  
+
   bindkey -M viins '^[[1;5D' backward-word # urxvt: C-Left
   bindkey -M viins '^[[1;5C' forward-word  # urxvt: C-Right
-  
+
   bindkey -M vicmd "^[[3^" delete-word     # urxvt: C-delete
   bindkey -M vicmd "^[[3"  delete-word     # urxvt: Alt-delete
-  
+
   bindkey -M viins -M vicmd "^[[1;3D" dirhistory_zle_dirhistory_back   # urxvt: Alt+Left
   bindkey -M viins -M vicmd "[1;3C" dirhistory_zle_dirhistory_future # urxvt: Alt+Right (not working)
-  
+
   bindkey -M viins -M vicmd "^F" forward-word  # C-f
 
   # Ctrl+P and Ctrl+N
