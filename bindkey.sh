@@ -43,9 +43,28 @@ bindkey "^[OA" up-line-or-history
 bindkey "^[OB" down-line-or-history
 
 # Ctrl+P and Ctrl+N
-bindkey "" history-beginning-search-backward
-bindkey "" history-beginning-search-forward
+function history-search-end {
+  integer ocursor=$CURSOR
+  if [[ $LASTWIDGET = history-beginning-search-*-end ]]; then
+    # Last widget called set $hbs_pos.
+    CURSOR=$hbs_pos
+  else
+    hbs_pos=$CURSOR
+  fi
 
+  if zle .${WIDGET%-end}; then
+    # success, go to end of line
+    zle .end-of-line
+  else
+    # failure, restore position
+    CURSOR=$ocursor
+    return 1
+  fi
+}
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
 
 # Enable keybindings that use the Alt key (not working for urxvt)
 # bindkey -m
