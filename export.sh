@@ -14,10 +14,11 @@ export GREP_COLOR='1;32'
 ##
 # sudo apt-get install colorgcc
 # sudo mkdir -p /usr/lib/colorgcc/
+# cd /usr/lib/colorgcc/
 # sudo ln -s /usr/bin/colorgcc gcc
 # sudo ln -s /usr/bin/colorgcc g++
 # sudo ln -s /usr/bin/colorgcc cc
-# sudo ln -s /usr/bin/colorgcc c+
+# sudo ln -s /usr/bin/colorgcc c++
 ##
 export PATH=/usr/lib/colorgcc:$PATH
 
