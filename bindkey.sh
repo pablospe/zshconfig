@@ -139,6 +139,9 @@ bindkey '^H' backward-delete-char   # C-H: Backspace
 bindkey "^[[3^" delete-word  # urxvt: C-delete
 bindkey "^[[3"  delete-word  # urxvt: Alt-delete
 
+bindkey "[3;5~"  delete-word  # konsole: C-delete
+bindkey "[3;3~"  delete-word  # konsole: Alt-delete
+
 bindkey '^[Od' backward-word # urxvt: C-Left
 bindkey '^[Oc' forward-word  # urxvt: C-Right
 
