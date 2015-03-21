@@ -17,7 +17,7 @@ eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
 # Using Vim as Pager
 alias vless='/usr/share/vim/vim74/macros/less.sh'
 alias oo="vless"  # 'o' was the alias but used by fasd
-alias o="less" 
+alias o="less"
 
 # du
 alias du="du -h --max-depth=1"
@@ -90,7 +90,6 @@ alias m.="meld ."
 alias cm="catkin_make"
 
 # Others
-alias cal="cal -3"
 alias free="free -m"
 alias alarma="aplay /home/spe/Documents/Sound/finish.wav"
 alias mensaje="notify-send --urgency=critical --expire-time=0 \"ATENCIÓN\" \"Terminó!\" --icon=/usr/share/icons/gnome/32x32/status/important.png"
