@@ -36,6 +36,12 @@ bindkey -M filterselect '[Z' up-line-or-history    # Shift+TAB
 bindkey -M filterselect '^[^H' backward-delete-word  # urxvt: Alt+BackSpace
 bindkey -M filterselect '^H'   backward-delete-word  # urxvt: C-BS
 
+bindkey -M filterselect '^[^?' backward-delete-word  # konsole: Alt+BackSpace
+bindkey -M filterselect '^?'   backward-delete-word  # konsole: C-BS
+
+bindkey -M filterselect '^D'   send-break              # c-d
+
+
 # setup key accordingly
 [[ -n "${key[Home]}"     ]]  && bindkey -M filterselect "${key[Home]}"     beginning-of-line
 [[ -n "${key[End]}"      ]]  && bindkey -M filterselect "${key[End]}"      end-of-line
