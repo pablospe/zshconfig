@@ -117,9 +117,9 @@ _git_print_category() {
   if [[ -n $str ]]; then
     symbol=$1
     color=$2
-    echo $color$3:
+    echo $color$3: | sed -e 's/\(%{\|%}\)//g'
     # Getting last column and adding symbol at the beginning
-    echo $str$RESET | sed -e 's/^.* //' | sed "s/^/\t\t${symbol} /"
+    echo $str$RESET | sed -e 's/^.* //' | sed -e 's/\(%{\|%}\)//g' | sed "s/^/\t\t${symbol} /"
   fi
 }
 
