@@ -5,28 +5,28 @@
 # Self-contained: it doesn't depends on 'oh-my-zsh/lib/git.zsh'
 
 # Color variables
-R=$fg_bold[red]
-G=$fg_bold[green]
-M=$fg_bold[magenta]
-Y=$fg_bold[yellow]
-B=$fg_bold[blue]
-C=$fg_bold[cyan]
-RED=$fg[red]
-GREEN=$fg[green]
-MAGENTA=$fg[magenta]
-YELLOW=$fg[yellow]
-BLUE=$fg[blue]
-CYAN=$fg[cyan]
-RESET=$reset_color
+R=%{$fg_bold[red]%}
+G=%{$fg_bold[green]%}
+M=%{$fg_bold[magenta]%}
+Y=%{$fg_bold[yellow]%}
+B=%{$fg_bold[blue]%}
+C=%{$fg_bold[cyan]%}
+RED=%{$fg[red]%}
+GREEN=%{$fg[green]%}
+MAGENTA=%{$fg[magenta]%}
+YELLOW=%{$fg[yellow]%}
+BLUE=%{$fg[blue]%}
+CYAN=%{$fg[cyan]%}
+RESET=%{$reset_color%}
 
 # Return code
-local return_code="%(?..%{$R%}%? ↵%{$RESET%})"
+local return_code="%(?..$R%? ↵$RESET)"
 
 # PROMT
-PROMPT=$'%{$C%}%n@%M%{$RESET%} %{$YELLOW%}%d%{$RESET%} $(git_prompt)\n » '
+PROMPT=$'$C%n@%M$RESET $YELLOW%d$RESET $(git_prompt)\n » '
 
 # RPS1
-RPS1="${return_code} %{$fg_bold[black]%}[ %T - `date '+%d/%m'` ]%{$RESET%}"
+RPROMPT="${return_code} %{$fg_bold[black]%}[ %T - `date '+%d/%m'` ]$RESET"
 
 #
 # Git prompt info
@@ -108,7 +108,7 @@ _git_print_symbols() {
     symbol=$1
     color=$2
     number=$(echo $str | wc -l)
-    echo -n ${SP}${color}${symbol}${number}${reset_color}
+    echo -n ${SP}${color}${symbol}${number}$RESET
   fi
 }
 
@@ -119,7 +119,7 @@ _git_print_category() {
     color=$2
     echo $color$3:
     # Getting last column and adding symbol at the beginning
-    echo $str$reset_color | sed -e 's/^.* //' | sed "s/^/\t\t${symbol} /"
+    echo $str$RESET | sed -e 's/^.* //' | sed "s/^/\t\t${symbol} /"
   fi
 }
 
