@@ -15,7 +15,7 @@ setopt pushdignoredups
 setopt pushdminus
 
 # Load incremental autocomplete
-source $ZSH_PWD/incr-autocomplete/load.sh
+#source $ZSH_PWD/incr-autocomplete/load.sh
 
 ##
 ## zaw
