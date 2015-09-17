@@ -96,4 +96,5 @@ alias mensaje="notify-send --urgency=critical --expire-time=0 \"ATENCIÓN\" \"Te
 alias open_microphone="arecord -f cd -D hw:0,0  | aplay"
 alias temp="cat /proc/acpi/thermal_zone/THM/temperature"
 alias LOG="svn log -l 10 -r HEAD:1 | less"
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 
