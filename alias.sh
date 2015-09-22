@@ -40,6 +40,9 @@ function find_i {
 alias ff="find_i"
 alias f="find_i"
 
+# Fixing  'v', fasd alias
+alias v='fasd -e vim'
+
 # Untar
 alias untar="tar -xvf"
 
