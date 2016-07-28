@@ -95,11 +95,6 @@ function p() {
 # ps (forest)
 alias ps='ps f'
 
-# mkdir and enter
-function mkdircd () {
-  mkdir $1; cd $1
-}
-
 function cp_rsync () {
   echo rsync -avh --progress $1 $2
   rsync -avh --progress $1 $2
