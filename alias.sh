@@ -5,7 +5,7 @@ alias ....="cd ../../.."
 alias lsdirs='ls --color -d */'
 
 # Uses ls++ if exists
-# Note: ttps://github.com/pablospe/ls--
+# Note: https://github.com/pablospe/ls--
 if hash ls++ 2>/dev/null; then
   alias l="ls++ --ptsf"
   alias ll="ls++ -a --potsf"
@@ -13,6 +13,29 @@ fi
 
 # https://github.com/trapd00r/LS_COLORS
 eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
+
+# ssh
+# http://stackoverflow.com/questions/6787734/strange-behavior-of-vim-color-inside-screen-with-256-colors
+export TERM=xterm-256color
+case "$TERM" in
+*-256color)
+    alias ssh='TERM=${TERM%-256color} ssh'
+    ;;
+*)
+    POTENTIAL_TERM=${TERM}-256color
+    POTENTIAL_TERMINFO=${TERM:0:1}/$POTENTIAL_TERM
+
+    # better to check $(toe -a | awk '{print $1}') maybe?
+    BOX_TERMINFO_DIR=/usr/share/terminfo
+    [[ -f $BOX_TERMINFO_DIR/$POTENTIAL_TERMINFO ]] && \
+        export TERM=$POTENTIAL_TERM
+
+    HOME_TERMINFO_DIR=$HOME/.terminfo
+    [[ -f $HOME_TERMINFO_DIR/$POTENTIAL_TERMINFO ]] && \
+        export TERM=$POTENTIAL_TERM
+    ;;
+esac
+
 
 # Using Vim as Pager
 alias vless='/usr/share/vim/vim74/macros/less.sh'
@@ -53,8 +76,8 @@ alias op="xdg-open"
 alias doc="cd ~/Documents"
 alias des="cd ~/Downloads"
 alias D="cd ~/Desktop/"
-alias W="cd ~/wrk"
-alias kk="cd ~/kk"
+alias W="cd /mnt/wrk"
+alias kk="cd /tmp"
 
 # 'which' shortcut (it will copy the result to clipboard)
 # Example: 'w grep'
@@ -75,6 +98,11 @@ alias ps='ps f'
 # mkdir and enter
 function mkdircd () {
   mkdir $1; cd $1
+}
+
+function cp_rsync () {
+  echo rsync -avh --progress $1 $2
+  rsync -avh --progress $1 $2
 }
 
 # Download accelerator (like 'wget' but in parallel)
