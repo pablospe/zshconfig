@@ -119,7 +119,7 @@ function get_build_folder_name() {
 
 # separe "build/" directory from the actually "wrk/" folder
 function mkbuild() {
-    get_build_folder_name
+    get_build_folder_name $1
 
     # create folder
     printf "Creating folder in: \n\t%s\n\n" $FOLDER
@@ -148,13 +148,13 @@ function mkbuild() {
 }
 
 function rmbuild() {
-    get_build_folder_name
+    get_build_folder_name $1
     echo rm -rf $FOLDER
     rm -rf $FOLDER
 }
 
 function cdbuild() {
-    get_build_folder_name
+    get_build_folder_name $1
     echo $FOLDER
     cd $FOLDER
 }
