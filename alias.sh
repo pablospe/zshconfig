@@ -9,6 +9,9 @@ alias lsdirs='ls --color -d */'
 if hash ls++ 2>/dev/null; then
   alias l="ls++ --ptsf"
   alias ll="ls++ -a --potsf"
+else
+  alias l="ls -lh"
+  alias ll="ls -lah"
 fi
 
 # https://github.com/trapd00r/LS_COLORS
