@@ -53,7 +53,7 @@ alias op="xdg-open"
 alias doc="cd ~/Documents"
 alias des="cd ~/Downloads"
 alias D="cd ~/Desktop/"
-alias W="cd /mnt/wrk"
+alias W="cd ~/wrk"
 alias kk="cd /tmp"
 
 # 'which' shortcut (it will copy the result to clipboard)
@@ -101,3 +101,60 @@ alias temp="cat /proc/acpi/thermal_zone/THM/temperature"
 alias LOG="svn log -l 10 -r HEAD:1 | less"
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 
+function get_build_folder_name() {
+    # default folder for compilation
+    BUILDS="$HOME/build"
+
+    # pwd
+    CURRENT_DIR=`pwd | sed 's/ /_/g'`  # replace space by '_'
+    BASE=`basename $CURRENT_DIR`
+
+    # echo $1
+    NAME=$1
+    if [ -z "$NAME" ]; then
+        NAME="build"
+    fi
+    FOLDER=$BUILDS/${BASE}_${NAME}
+}
+
+# separe "build/" directory from the actually "wrk/" folder
+function mkbuild() {
+    get_build_folder_name
+
+    # create folder
+    printf "Creating folder in: \n\t%s\n\n" $FOLDER
+    if [ -d "$FOLDER" ]
+    then
+        printf "Directory already exists! Solution:\n"
+        printf "\trm -r $FOLDER\n\n"
+        return 1
+    fi
+    mkdir -p $FOLDER
+
+#     # create symbolic link
+#     if [ -d "$NAME" ]
+#     then
+#         printf "Symbolic link already exists! Solution:\n"
+#         printf "\trm -r $NAME\n\n"
+#         return 1
+#     fi
+#     ln -s $FOLDER $NAME
+#     ls -l $NAME
+#     echo ""
+
+    cd $FOLDER
+    echo cmake $CURRENT_DIR -DCMAKE_INSTALL_PREFIX="$HOME/install/${BASE}_${NAME}"
+    cmake $CURRENT_DIR -DCMAKE_INSTALL_PREFIX="$HOME/install/${BASE}_${NAME}"
+}
+
+function rmbuild() {
+    get_build_folder_name
+    echo rm -rf $FOLDER
+    rm -rf $FOLDER
+}
+
+function cdbuild() {
+    get_build_folder_name
+    echo $FOLDER
+    cd $FOLDER
+}
