@@ -28,6 +28,12 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 
+# export grep settings
+alias grep="grep $GREP_OPTIONS"
+
+# clean up
+unset GREP_OPTIONS
+
 # http://cwrapper.sourceforge.net/
 # Note: before 'colorgcc'
 # export PATH=/usr/local/lib/cw:$PATH
