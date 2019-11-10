@@ -17,10 +17,13 @@ fi
 # https://github.com/trapd00r/LS_COLORS
 eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
 
-# Using Vim as Pager
-alias vless='/usr/share/vim/vim74/macros/less.sh'
-alias oo="vless"  # 'o' was the alias but used by fasd
-alias o="less"
+
+# Uses bat if exists
+if hash bat 2>/dev/null; then
+    alias o="bat"
+else
+    alias o="less"
+fi
 
 # du
 alias du="du -h --max-depth=1"
