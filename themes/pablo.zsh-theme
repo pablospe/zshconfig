@@ -94,12 +94,12 @@ _git_status() {
 
   # Categories with different color and symbols (only can be empty the last arg)
   func_name=$1
-  $func_name ● $C   "Staged changes"  $GIT_STAGED
-  $func_name ✚ $Y   "Modified files"  $GIT_MODIFIED
-  $func_name ✖ $R   "Deleted files"   $GIT_DELETED
-  $func_name ➜ $M   "Renamed files"   $GIT_RENAMED
-  $func_name ═ $Y   "Unmerged files"  $GIT_UNMERGED
   $func_name … $RED "Untracked files" $GIT_UNTRACKED
+  $func_name ═ $Y   "Unmerged files"  $GIT_UNMERGED
+  $func_name ➜ $M   "Renamed files"   $GIT_RENAMED
+  $func_name ✖ $R   "Deleted files"   $GIT_DELETED
+  $func_name ✚ $Y   "Modified files"  $GIT_MODIFIED
+  $func_name ● $C   "Staged changes"  $GIT_STAGED
 }
 
 _git_print_symbols() {
