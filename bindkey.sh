@@ -100,6 +100,9 @@ bindkey "\e[Z" expand-word # Note: Ctrl+'_' for undo
 # Undo
 bindkey "^[u" undo # Alt+u or ESC, u
 
+# Clear screen
+bindkey "^[l" clear-screen # Alt+l or ESC, l
+
 ##
 ## dirhistory
 ##
