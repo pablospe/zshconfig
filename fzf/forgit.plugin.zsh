@@ -188,7 +188,7 @@ FORGIT_FZF_DEFAULT_OPTS="
 $FZF_DEFAULT_OPTS
 --ansi
 --reverse
---height='50%'
+--height='85%'
 --bind='alt-k:preview-up,alt-p:preview-up'
 --bind='alt-j:preview-down,alt-n:preview-down'
 --bind='ctrl-r:toggle-all'
@@ -202,12 +202,14 @@ $FORGIT_FZF_DEFAULT_OPTS
 # register aliases
 # shellcheck disable=SC2139
 if [[ -z "$FORGIT_NO_ALIASES" ]]; then
-    alias "${forgit_add:-ga}"='forgit::add'
+    alias "${forgit_add:-gfadd}"='forgit::add'
     alias "${forgit_reset_head:-grh}"='forgit::reset::head'
+    alias "${forgit_log:-gflog}"='forgit::log'
     alias "${forgit_log:-glo}"='forgit::log'
-    alias "${forgit_diff:-gd}"='forgit::diff'
-    alias "${forgit_ignore:-gi}"='forgit::ignore'
-    alias "${forgit_restore:-gcf}"='forgit::restore'
-    alias "${forgit_clean:-gclean}"='forgit::clean'
+    alias "${forgit_log:-glog}"='forgit::log'
+    alias "${forgit_diff:-gfdiff}"='forgit::diff'
+    alias "${forgit_ignore:-gfignore}"='forgit::ignore'
+    alias "${forgit_restore:-gfrestore}"='forgit::restore'
+    alias "${forgit_clean:-gfclean}"='forgit::clean'
     # alias "${forgit_stash_show:-gss}"='forgit::stash::show'
 fi
