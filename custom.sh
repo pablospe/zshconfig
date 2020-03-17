@@ -83,6 +83,6 @@ bindkey '^X^D' fasd-complete-d  # C-x C-d to do fasd-complete-d (only directorie
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ${ZSH_PWD}/fzf/zsh-interactive-cd.plugin.zsh
+# source ${ZSH_PWD}/fzf/zsh-interactive-cd.plugin.zsh
 source ${ZSH_PWD}/fzf/forgit.plugin.zsh
 
