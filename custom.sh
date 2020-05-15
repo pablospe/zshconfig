@@ -31,14 +31,15 @@ bindkey -M filterselect '' accept-search
 bindkey -M filterselect '^[' send-break
 
 bindkey -M filterselect '^I'   down-line-or-history  # TAB
-bindkey -M filterselect '[Z' up-line-or-history    # Shift+TAB
+bindkey -M filterselect '[Z' up-line-or-history     # Shift+TAB
 
 bindkey -M filterselect '^[^H' backward-delete-word  # urxvt: Alt+BackSpace
 bindkey -M filterselect '^H'   backward-delete-word  # urxvt: C-BS
 
 bindkey -M filterselect '^[^?' backward-delete-word  # konsole: Alt+BackSpace
+bindkey -M filterselect '^?'   backward-delete-word  # konsole: C-BS
 
-bindkey -M filterselect '^D'   send-break              # c-d
+bindkey -M filterselect '^D'   send-break            # c-d
 
 
 # setup key accordingly
