@@ -17,6 +17,27 @@ setopt pushdminus
 # Load incremental autocomplete
 #source $ZSH_PWD/incr-autocomplete/load.sh
 
+#
+# FZF
+#
+# Ctrl+T (file), Alt-C (folders), Ctrl+R (history)
+#
+export FZF_DEFAULT_OPTS="\
+        --height ${FZF_TMUX_HEIGHT:-30%} \
+        --bind 'shift-tab:up,tab:down'   \
+        --layout=reverse --border        \
+        --inline-info                    \
+        --cycle                          \
+        --select-1                       \
+        --color=dark                     \
+        --color=fg:-1,bg:-1,hl:#fb8aa4,fg+:-1,bg+:-1,hl+:#55E579 \
+        --color=info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579
+        "
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# source ${ZSH_PWD}/fzf/zsh-interactive-cd.plugin.zsh
+source ${ZSH_PWD}/fzf/forgit.plugin.zsh
+
+
 ##
 ## zaw
 ##
@@ -80,20 +101,3 @@ fi
 bindkey '^X^A' fasd-complete    # C-x C-a to do fasd-complete (fils and directories)
 bindkey '^X^F' fasd-complete-f  # C-x C-f to do fasd-complete-f (only files)
 bindkey '^X^D' fasd-complete-d  # C-x C-d to do fasd-complete-d (only directories)
-
-
-# fzf
-export FZF_DEFAULT_OPTS="\
-        --height ${FZF_TMUX_HEIGHT:-30%} \
-        --bind 'shift-tab:up,tab:down'   \
-        --layout=reverse --border        \
-        --inline-info                    \
-        --cycle                          \
-        --select-1                       \
-        --color=dark                     \
-        --color=fg:-1,bg:-1,hl:#fb8aa4,fg+:-1,bg+:-1,hl+:#55E579 \
-        --color=info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579
-        "
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# source ${ZSH_PWD}/fzf/zsh-interactive-cd.plugin.zsh
-source ${ZSH_PWD}/fzf/forgit.plugin.zsh
