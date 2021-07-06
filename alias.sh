@@ -33,7 +33,7 @@ alias cdu="cdu -i -s -dh"
 
 # dfc (sudo apt-get install dfc)
 if hash dfc 2>/dev/null; then
-  alias df="dfc -f"
+  alias df="dfc -f -T -q "name" -t ext,fuse"
 fi
 
 # Colorized cat (sudo apt-get install python-pygments)
