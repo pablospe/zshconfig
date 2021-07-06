@@ -20,7 +20,7 @@ setopt pushdminus
 #
 # FZF
 #
-# Ctrl+T (file), Alt-C (folders), Ctrl+R (history)
+# ALT+T (file), Alt-C (folders)
 #
 export FZF_DEFAULT_OPTS="\
         --height ${FZF_TMUX_HEIGHT:-30%} \
@@ -39,7 +39,7 @@ source ${ZSH_PWD}/fzf/forgit.plugin.zsh
 
 
 ##
-## zaw
+## zaw -- Ctrl+R (history)
 ##
 ## Note: http://blog.patshead.com/2013/04/more-powerful-zsh-history-search-using-zaw.html
 source $ZSH_PWD/zaw/zaw.zsh
