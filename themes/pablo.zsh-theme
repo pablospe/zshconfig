@@ -31,20 +31,21 @@ RPROMPT="${return_code} %{$fg_bold[black]%}[ %T - `date '+%d/%m'` ]$RESET"
 #
 # Git prompt info
 #
-# '●': staged,  '✚': changed, '…': untracked,
-# '✖': deleted, '➜': renamed, '═': unmerged
+# '●': staged,  '+': changed, '…': untracked,
+# '⛌': deleted, '→': renamed, '═': unmerged
 #
 # (master|34r25ab|✔): on branch master; clean
-# (master|70c2952|↑3 ✚1): on branch master, ahead of remote by 3 commits,
+# (master|70c2952|↑3 +1): on branch master, ahead of remote by 3 commits,
 #                         1 file changed but not staged.
-# (status|21ab52b|●2 _3): on branch status, 2 files staged, 3 files untracked.
-# (master|70c2952|✖2 ✚3): on branch master, 2 files deleted, 3 files changed.
+# (status|21ab52b|●2 …3): on branch status, 2 files staged, 3 files untracked.
+# (master|70c2952|⛌2 +3): on branch master, 2 files deleted, 3 files changed.
 # (experimental|70c2952|▾▴ ↓2 ↑3): on branch experimental; your branch has
 #                                  diverged by 3 commits, remote by 2 commits
 #
 function git_prompt() {
   # Git modifiers will be separated by ${SP} (empty or only one character)
-  SP=' '
+  SP=''
+  # SP=' '  # Spaces among the symbols.
 
   # Git status (whith <symbol><number>)
   STATUS="$(_git_status _git_print_symbols)"
@@ -96,9 +97,9 @@ _git_status() {
   func_name=$1
   $func_name … $RED "Untracked files" $GIT_UNTRACKED
   $func_name ═ $Y   "Unmerged files"  $GIT_UNMERGED
-  $func_name ➜ $M   "Renamed files"   $GIT_RENAMED
-  $func_name ✖ $R   "Deleted files"   $GIT_DELETED
-  $func_name ✚ $Y   "Modified files"  $GIT_MODIFIED
+  $func_name → $M   "Renamed files"   $GIT_RENAMED
+  $func_name x $R   "Deleted files"   $GIT_DELETED
+  $func_name + $Y   "Modified files"  $GIT_MODIFIED
   $func_name ● $C   "Staged changes"  $GIT_STAGED
 }
 
@@ -142,8 +143,8 @@ _git_remote_status() {
     GIT_BEHIND=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
 
     # Variables
-    GIT_PROMPT_BEHIND="$SP$M⬇${GIT_BEHIND}$RESET"
-    GIT_PROMPT_AHEAD="$SP$G⬆${GIT_AHEAD}$RESET"
+    GIT_PROMPT_BEHIND="$SP$M↓${GIT_BEHIND}$RESET"
+    GIT_PROMPT_AHEAD="$SP$G↑${GIT_AHEAD}$RESET"
     GIT_PROMPT_DIVERGED="$SP$R▾▴$RESET${GIT_PROMPT_AHEAD}${GIT_PROMPT_BEHIND}"
 
     # Ahead, Behind or Diverged
