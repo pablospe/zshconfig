@@ -87,7 +87,13 @@ function cp_rsync () {
 alias axel="axel -a"
 
 # A modern replacement for ‘ls’.
-# https://github.com/ogham/exa
+#
+#    https://github.com/ogham/exa
+#
+# '-s size' (for sorting by size)
+#
+# Note: for icons to work properly it needs one of the Nerd fonts.
+#
 alias exa="exa -lh -F --icons --group-directories-first --time-style long-iso -g --color-scale"
 
 # PWD (and copy to clipboard)
