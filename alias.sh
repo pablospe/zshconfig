@@ -86,6 +86,10 @@ function cp_rsync () {
 # Download accelerator (like 'wget' but in parallel)
 alias axel="axel -a"
 
+# A modern replacement for ‘ls’.
+# https://github.com/ogham/exa
+alias exa="exa -lh -F --icons --group-directories-first --time-style long-iso -g --color-scale"
+
 # PWD (and copy to clipboard)
 alias pw="pwd | tr -d '\n' | xsel -ib; pwd"
 
