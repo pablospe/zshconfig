@@ -14,6 +14,16 @@ else
   alias ll="ls -lah"
 fi
 
+# A modern replacement for ‘ls’.
+#
+#    https://github.com/ogham/exa
+#
+# '-s size' (for sorting by size)
+#
+# Note: for icons to work properly it needs one of the Nerd fonts.
+#
+alias e="exa -l --group-directories-first --color-scale"
+
 # https://github.com/trapd00r/LS_COLORS
 eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
 
@@ -85,16 +95,6 @@ function cp_rsync () {
 
 # Download accelerator (like 'wget' but in parallel)
 alias axel="axel -a"
-
-# A modern replacement for ‘ls’.
-#
-#    https://github.com/ogham/exa
-#
-# '-s size' (for sorting by size)
-#
-# Note: for icons to work properly it needs one of the Nerd fonts.
-#
-alias exa="exa -lh -F --icons --group-directories-first --time-style long-iso -g --color-scale"
 
 # PWD (and copy to clipboard)
 alias pw="pwd | tr -d '\n' | xsel -ib; pwd"
