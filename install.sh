@@ -46,6 +46,6 @@ echo ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
 ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
 
 # Powerlevel10 (it needs a NERD font)
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${MY_PATH}/oh-my-zsh/custom}/themes/powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${MY_PATH}/oh-my-zsh/custom/themes/powerlevel10k
 echo ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh
 ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh
