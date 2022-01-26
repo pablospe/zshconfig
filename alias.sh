@@ -108,6 +108,9 @@ alias m.="meld ."
 # Catkin
 alias cm="catkin_make"
 
+alias p10k_icons="source ~/.p10k.zsh"
+alias p10k_noicons="source ~/.p10k-noicons.zsh"
+
 # Others
 alias free="free -m"
 alias alarma="aplay /home/spe/Documents/Sound/finish.wav"
