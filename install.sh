@@ -4,7 +4,7 @@
 git pull && git submodule update --init --recursive
 
 # Files to be overwritten
-FILES='.zshrc .p10k.zsh'
+FILES='.zshrc .p10k.zsh .p10k-noicons.zsh'
 
 # Create backup
 PATH_BACKUP=~/backup/
