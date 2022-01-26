@@ -5,7 +5,7 @@ export ZSH=$ZSH_PWD/oh-my-zsh
 fpath=($ZSH_PWD/zsh-completions/src $fpath)
 
 # Set name of the theme to load.
-ZSH_THEME="pablo"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
@@ -35,3 +35,6 @@ source $ZSH_PWD/alias.sh
 
 # Export
 source $ZSH_PWD/export.sh
+
+# Load gss (git status)
+source $ZSH_PWD/gss.sh
