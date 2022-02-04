@@ -23,10 +23,14 @@ setopt pushdminus
 # ALT+T (file), Alt-C (folders)
 #
 export FZF_DEFAULT_OPTS="\
+        --exact                          \
         --height ${FZF_TMUX_HEIGHT:-30%} \
         --bind 'shift-tab:up,tab:down'   \
         --layout=reverse --border        \
-        --inline-info                    \
+        --info=hidden                    \
+        --prompt='$  '                   \
+        --pointer='=>'                   \
+        --marker='+'                     \
         --cycle                          \
         --select-1                       \
         --color=dark                     \
@@ -37,45 +41,6 @@ export FZF_DEFAULT_OPTS="\
 # source ${ZSH_PWD}/fzf/zsh-interactive-cd.plugin.zsh
 source ${ZSH_PWD}/fzf/forgit.plugin.zsh
 
-
-##
-## zaw -- Ctrl+R (history)
-##
-## Note: http://blog.patshead.com/2013/04/more-powerful-zsh-history-search-using-zaw.html
-source $ZSH_PWD/zaw/zaw.zsh
-
-bindkey '^R' zaw-history
-bindkey -M filterselect '^R' down-line-or-history
-bindkey -M filterselect '^S' up-line-or-history
-bindkey -M filterselect '^E' accept-search
-bindkey -M filterselect '' accept-search
-bindkey -M filterselect '^[' send-break
-
-bindkey -M filterselect '^I'   down-line-or-history  # TAB
-bindkey -M filterselect '[Z' up-line-or-history     # Shift+TAB
-
-bindkey -M filterselect '^[^H' backward-delete-word  # urxvt: Alt+BackSpace
-bindkey -M filterselect '^H'   backward-delete-word  # urxvt: C-BS
-
-bindkey -M filterselect '^[^?' backward-delete-word  # konsole: Alt+BackSpace
-bindkey -M filterselect '^?'   backward-delete-word  # konsole: C-BS
-
-bindkey -M filterselect '^D'   send-break            # c-d
-
-
-# setup key accordingly
-[[ -n "${key[Home]}"     ]]  && bindkey -M filterselect "${key[Home]}"     beginning-of-line
-[[ -n "${key[End]}"      ]]  && bindkey -M filterselect "${key[End]}"      end-of-line
-[[ -n "${key[Insert]}"   ]]  && bindkey -M filterselect "${key[Insert]}"   overwrite-mode
-[[ -n "${key[Delete]}"   ]]  && bindkey -M filterselect "${key[Delete]}"   delete-char
-[[ -n "${key[PageUp]}"   ]]  && bindkey -M filterselect "${key[PageUp]}"   history-beginning-search-backward
-[[ -n "${key[PageDown]}" ]]  && bindkey -M filterselect "${key[PageDown]}" history-beginning-search-forward
-
-zstyle ':filter-select:highlight' matched fg=green
-zstyle ':filter-select' max-lines 10
-zstyle ':filter-select' case-insensitive yes
-# zstyle ':filter-select' extended-search yes
-## End 'zaw' configutation
 
 # zsh-syntax-highlighting
 source $ZSH_PWD/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
