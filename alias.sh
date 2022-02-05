@@ -10,8 +10,8 @@ if hash ls++ 2>/dev/null; then
   alias l="ls++ --ptsf"
   alias ll="ls++ -a --potsf"
 else
-  alias l="ls -lh"
-  alias ll="ls -lah"
+  alias l="ls -lh --group-directories-first"
+  alias ll="ls -lah --group-directories-first"
 fi
 
 # A modern replacement for ‘ls’.
