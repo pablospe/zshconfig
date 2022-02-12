@@ -15,5 +15,5 @@ source ${ZSH_PWD}/zshrc
 unset ZSH_PWD
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh                  # with Nerd fonts
-# [[ ! -f ~/.p10k-noicons.zsh ]] || source ~/.p10k-noicons.zsh  # without Nerd fonts
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh                  # with Nerd fonts
+[[ ! -f ~/.p10k-noicons.zsh ]] || source ~/.p10k-noicons.zsh    # without Nerd fonts
