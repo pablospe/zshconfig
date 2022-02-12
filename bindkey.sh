@@ -175,5 +175,5 @@ zle -N x-yank
 bindkey -e '^Y' x-yank
 
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
-stty -ixon
+stty -ixon <$TTY >$TTY
 
