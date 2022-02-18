@@ -53,10 +53,15 @@ function git_prompt() {
 
   # (BRANCH|HASH|STATUS)
   BAR="$B|"
-  # PREFIX="$B($RED"
-  # SUFFIX="$B)$RESET"
-  PREFIX="$B$RED"
-  SUFFIX="$B"
+
+  # With parentheses.
+  PREFIX="$B($RED"
+  SUFFIX="$B)$RESET"
+
+  # Without parentheses.
+  # PREFIX="$B$RED"
+  # SUFFIX="$B"
+
   BRANCH=$(command git rev-parse --abbrev-ref HEAD 2>/dev/null) && BRANCH=$BRANCH$BAR
   HASH=$(command git rev-parse --short HEAD 2> /dev/null) && HASH=$M$HASH$BAR
   echo "${PREFIX}${BRANCH}${HASH}${STATUS}${SUFFIX}"
@@ -122,12 +127,12 @@ _git_check_clean() {
 
 # Get the difference between the local and remote branches
 _git_remote_status() {
-  remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
-  if [[ -n ${remote} ]] ; then
+  remote=$(git for-each-ref --format='%(upstream:short)' "$(git symbolic-ref -q HEAD)")
 
+  if [[ -n ${remote} ]] ; then
     # Number of commits 'ahead' and 'behind' (current branch)
-    GIT_AHEAD=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-    GIT_BEHIND=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    GIT_AHEAD=$(git rev-list HEAD --not $remote --count)
+    GIT_BEHIND=$(git rev-list $remote --not HEAD --count)
 
     # Variables
     GIT_PROMPT_BEHIND="$SP$M↓${GIT_BEHIND}"
@@ -135,13 +140,13 @@ _git_remote_status() {
     GIT_PROMPT_DIVERGED="$SP$R▾▴${GIT_PROMPT_AHEAD}${GIT_PROMPT_BEHIND}"
 
     # Ahead, Behind or Diverged
-    if [ $GIT_AHEAD -eq 0 ] && [ $GIT_BEHIND -gt 0 ]
+    if [[ $GIT_AHEAD -eq 0 ]] && [[ $GIT_BEHIND -gt 0 ]]
     then
       echo $GIT_PROMPT_BEHIND
-    elif [ $GIT_AHEAD -gt 0 ] && [ $GIT_BEHIND -eq 0 ]
+    elif [[ $GIT_AHEAD -gt 0 ]] && [[ $GIT_BEHIND -eq 0 ]]
     then
       echo $GIT_PROMPT_AHEAD
-    elif [ $GIT_AHEAD -gt 0 ] && [ $GIT_BEHIND -gt 0 ]
+    elif [[ $GIT_AHEAD -gt 0 ]] && [[ $GIT_BEHIND -gt 0 ]]
     then
       echo $GIT_PROMPT_DIVERGED
     fi
