@@ -1,15 +1,20 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
+	branch = master
 [submodule "zsh-completions"]
 	path = zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
+	branch = master
 [submodule "zsh-syntax-highlighting"]
 	path = zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+	branch = master
 [submodule "fasd"]
 	path = fasd
 	url = https://github.com/clvv/fasd.git
+	branch = master
 [submodule "ls_colors"]
 	path = ls_colors
 	url = https://github.com/trapd00r/LS_COLORS.git
+	branch = master
