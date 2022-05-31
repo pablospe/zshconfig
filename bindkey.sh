@@ -129,7 +129,7 @@ bindkey "^[h" cd-up     # urxvt (ESC h)
 
 # Alt+BackSpace delete (big) word. Note: it is different than Ctrl+W
 function backwards-delete-part () {
-  local sep=" :"
+  local sep=" "
   LBUFFER=${(M)${LBUFFER%[$sep]}##*[$sep]}
 }
 zle -N backwards-delete-part
@@ -176,4 +176,3 @@ bindkey -e '^Y' x-yank
 
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
 stty -ixon <$TTY >$TTY
-
