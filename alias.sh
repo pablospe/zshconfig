@@ -115,6 +115,9 @@ alias p10k_noicons="source ~/.p10k-noicons.zsh"
 # fasd
 alias z='fasd_cd -d'
 
+# tmux (overwrite oh-my-zsh plugin alias)
+alias ta='tmux attach'
+
 # Others
 alias free="free -m"
 alias alarma="aplay /home/spe/Documents/Sound/finish.wav"

@@ -11,7 +11,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"
 
 # Plugins
-plugins=(git git-extras git-flow fasd command-not-found web-search last-working-dir pylint extract docker docker-compose)
+plugins=(command-not-found docker docker-compose extract fasd fd git git-extras git-flow last-working-dir pylint rsync tmux web-search)
 
 # Load Oh-my-zsh
 source $ZSH/oh-my-zsh.sh
