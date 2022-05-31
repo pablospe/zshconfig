@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Pull the latest changes and update submodules
-git pull && git submodule update --init --recursive
+git pull && git submodule update --init --recursive --remote
 
 # Files to be overwritten
 FILES='.zshrc .p10k.zsh .p10k-noicons.zsh'

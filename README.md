@@ -7,5 +7,5 @@ Personal zsh configuration.
 
 Run the folowing commands:
 
-    git clone git@github.com:pablospe/zshconfig.git zsh
+    git clone --recurse-submodules --remote-submodules --depth 1 -j8 git@github.com:pablospe/zshconfig.git zsh
     sh zsh/install.sh
