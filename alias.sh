@@ -108,8 +108,12 @@ alias m.="meld ."
 # Catkin
 alias cm="catkin_make"
 
+# p10k
 alias p10k_icons="source ~/.p10k.zsh"
 alias p10k_noicons="source ~/.p10k-noicons.zsh"
+
+# fasd
+alias z='fasd_cd -d'
 
 # Others
 alias free="free -m"
