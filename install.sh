@@ -45,6 +45,9 @@ git update-index --assume-unchanged $ZSHRC
 echo ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
 ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/custom/themes/
 
+# Install zsh-autosuggestions as custom oh-my-zsh plugin.
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${MY_PATH}/oh-my-zsh/custom/plugins/zsh-autosuggestions
+
 # Powerlevel10 (it needs a NERD font)
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${MY_PATH}/oh-my-zsh/custom/themes/powerlevel10k
 echo ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh
