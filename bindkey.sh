@@ -176,3 +176,6 @@ bindkey -e '^Y' x-yank
 
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
 stty -ixon <$TTY >$TTY
+
+# Ctrl+space to accept autosuggestion
+bindkey '^ ' autosuggest-accept
