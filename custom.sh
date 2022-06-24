@@ -49,3 +49,7 @@ source ${ZSH_PWD}/fzf/forgit.plugin.zsh
 
 # zsh-syntax-highlighting
 source $ZSH_PWD/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-autosuggestions
+export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
