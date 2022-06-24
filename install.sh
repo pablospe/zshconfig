@@ -2,7 +2,7 @@
 
 # Prefix data and color for every command.
 PS4='\033[1;31m$(date +%H:%M:%S)\033[0m '
-set -exo pipefail
+[ ! $(expr "$SHELL" : '.*\(zsh\)$') ] && set -o pipefail
 
 # Pull the latest changes and update submodules
 git pull && git submodule update --init --recursive --remote
