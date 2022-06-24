@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Prefix data and color for every command.
+PS4='\033[1;31m$(date +%H:%M:%S)\033[0m '
+set -exo pipefail
+
 # Pull the latest changes and update submodules
 git pull && git submodule update --init --recursive --remote
 
@@ -8,11 +12,9 @@ FILES='.zshrc .p10k.zsh .p10k-noicons.zsh'
 
 # Create backup
 PATH_BACKUP=~/backup/
-echo mkdir -p $PATH_BACKUP
 mkdir -p $PATH_BACKUP
 
 for i in $FILES; do
-  echo mv ~/$i $PATH_BACKUP
   [ -f ~/$i ] && mv ~/$i $PATH_BACKUP
 done
 
@@ -34,23 +36,19 @@ sed -i "3d" $ZSHRC
 sed -i "3i\ZSH_PWD=${MY_PATH}" $ZSHRC
 
 # Installing
-echo ln -f -s $ZSHRC ~/.zshrc
 ln -f -s $ZSHRC ~/.zshrc
 
 # Ignore local changes
-echo git update-index --assume-unchanged $ZSHRC
 git update-index --assume-unchanged $ZSHRC
 
 # Adding 'pablo' theme to oh-my-zsh/theme
-echo ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/themes/
 ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/custom/themes/
 
 # Install zsh-autosuggestions as custom oh-my-zsh plugin.
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${MY_PATH}/oh-my-zsh/custom/plugins/zsh-autosuggestions
+ln -f -s ${MY_PATH}/zsh-autosuggestions ${MY_PATH}/oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-# Powerlevel10 (it needs a NERD font)
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${MY_PATH}/oh-my-zsh/custom/themes/powerlevel10k
-echo ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh
-ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh
-echo ln -f -s ${MY_PATH}/p10k-noicons.zsh ~/.p10k-noicons.zsh
+# Powerlevel10 
+ln -f -s ${MY_PATH}/powerlevel10k ${MY_PATH}/oh-my-zsh/custom/themes/powerlevel10k
 ln -f -s ${MY_PATH}/p10k-noicons.zsh ~/.p10k-noicons.zsh
+# This needs a NERD font
+ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh && cp ~/.p10k.zsh ~/.p10k-icons.zsh

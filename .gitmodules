@@ -14,3 +14,11 @@
 	path = ls_colors
 	url = https://github.com/trapd00r/LS_COLORS.git
 	branch = master
+[submodule "zsh-autosuggestions"]
+	path = zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+	branch = master
+[submodule "powerlevel10k"]
+	path = powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
+	branch = master
