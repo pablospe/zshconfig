@@ -47,8 +47,12 @@ ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/custom/themes/
 # Install zsh-autosuggestions as custom oh-my-zsh plugin.
 ln -f -s ${MY_PATH}/zsh-autosuggestions ${MY_PATH}/oh-my-zsh/custom/plugins/zsh-autosuggestions
 
-# Powerlevel10 
+# Powerlevel10
 ln -f -s ${MY_PATH}/powerlevel10k ${MY_PATH}/oh-my-zsh/custom/themes/powerlevel10k
 ln -f -s ${MY_PATH}/p10k-noicons.zsh ~/.p10k-noicons.zsh
 # This needs a NERD font
 ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh && cp ~/.p10k.zsh ~/.p10k-icons.zsh
+
+# fzf-tab
+ln -f -s ${MY_PATH}/fzf-tab ${MY_PATH}/oh-my-zsh/custom/plugins/fzf-tab
+ln -f -s ${MY_PATH}/lessfilter.sh ~/.lessfilter.sh

@@ -22,3 +22,6 @@
 	path = powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
 	branch = master
+[submodule "fzf-tab"]
+	path = fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git

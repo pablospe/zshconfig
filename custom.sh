@@ -53,3 +53,44 @@ source $ZSH_PWD/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 
+#
+# fzf-tab
+#
+# note: use `toggle-fzf-tab` command to disable it
+#
+# Disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# Set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# Set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# Preview directory's content when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# Switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:*' switch-group F1 F2
+# Show file contents
+# https://github.com/Aloxaf/fzf-tab/wiki/Preview
+zstyle ':fzf-tab:complete:(vi|l|ls|code):*' fzf-preview 'less ${(Q)realpath}'
+export LESSOPEN='|~/.lessfilter.sh %s'
+# Environment variable
+zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
+	fzf-preview 'echo ${(P)word}'
+# Git
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+  'git diff $word | delta'
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
+	'git log --graph --pretty="%C(#ff69b4)%h%Creset %C(bold blue)%al%Creset%C(auto)%d%Creset %s %Cgreen%cs (%ar)" --color=always $word'
+zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
+	'git help $word | bat -plman --color=always'
+zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
+	'case "$group" in
+	"commit tag") git show --color=always $word ;;
+	*) git show --color=always $word | delta ;;
+	esac'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+	'case "$group" in
+	"modified file") git diff $word | delta ;;
+	"recent commit object name") git show --color=always $word | delta ;;
+	*) git log --color=always $word ;;
+	esac'
