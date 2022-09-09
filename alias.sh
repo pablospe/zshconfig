@@ -4,16 +4,6 @@ alias cd -="popd"
 alias ....="cd ../../.."
 alias lsdirs='ls --color -d */'
 
-# Uses ls++ if exists
-# Note: https://github.com/pablospe/ls--
-if hash ls++ 2>/dev/null; then
-  alias l="ls++ --ptsf"
-  alias ll="ls++ -a --potsf"
-else
-  alias l="ls -lh --group-directories-first"
-  alias ll="ls -lah --group-directories-first"
-fi
-
 # A modern replacement for ‘ls’.
 #
 #    https://github.com/ogham/exa
@@ -22,7 +12,17 @@ fi
 #
 # Note: for icons to work properly it needs one of the Nerd fonts.
 #
-alias e="exa -l --group-directories-first --color-scale"
+alias e="exa -l --group-directories-first --color-scale --git-ignore --color=always"
+
+if hash exa 2>/dev/null; then
+  alias l="e"
+  alias ll="e -a --icons"
+  alias ls="exa --group-directories-first --color-scale --git-ignore --color=always"
+else
+  alias l="ls -lh --group-directories-first"
+  alias ll="ls -lah --group-directories-first"
+fi
+alias la="l -a"
 
 # https://github.com/trapd00r/LS_COLORS
 eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
