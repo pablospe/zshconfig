@@ -52,6 +52,8 @@ source $ZSH_PWD/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+# https://github.com/zsh-users/zsh-autosuggestions/issues/678
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
 
 #
 # fzf-tab
