@@ -161,5 +161,15 @@ bindkey -e '^Y' x-yank
 # Map Ctrl-S to something usefull other than XOFF (interrupt data flow)
 stty -ixon <$TTY >$TTY
 
-# Ctrl+space to accept autosuggestion
-bindkey '^ ' autosuggest-accept
+# Bindkey for autosuggestion.
+function __autosuggest-continue() {
+  # if [ -n "$POSTDISPLAY" ]; then
+    zle autosuggest-accept
+    zle autosuggest-fetch
+  # fi
+}
+zle -N __autosuggest-continue
+# Ctrl+Space to accept autosuggestion and continue.
+bindkey '^ ' __autosuggest-continue
+# Ctrl+Alt+Space to accept toggle autosuggestion.
+bindkey '^[^ ' autosuggest-toggle
