@@ -25,3 +25,4 @@
 [submodule "fzf-tab"]
 	path = fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab.git
+	branch = master
