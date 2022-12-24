@@ -15,6 +15,7 @@ plugins=(command-not-found docker docker-compose extract fasd fd git git-extras 
 
 
 # Load Oh-my-zsh
+zstyle ':omz:update' mode disabled
 source $ZSH/oh-my-zsh.sh
 
 # ROS
