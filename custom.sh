@@ -61,6 +61,9 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-be
 #
 # note: use `toggle-fzf-tab` command to disable it
 #
+# Minimal sizes.
+zstyle ':fzf-tab:*' fzf-min-height 30
+zstyle ':fzf-tab:*' popup-min-size 50 8
 # Disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # Set descriptions format to enable group support
@@ -69,6 +72,8 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Preview directory's content when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+# Manuals
+zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 # Switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' switch-group F1 F2
