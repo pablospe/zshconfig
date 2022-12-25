@@ -87,6 +87,9 @@ bindkey "^[u" undo # Alt+u or ESC, u
 # Clear screen
 bindkey "^[l" clear-screen # Alt+l or ESC, l
 
+# Same as Ctrl+u
+bindkey "\e\e" kill-whole-line
+
 ##
 ## dirhistory
 ##
