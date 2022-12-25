@@ -33,6 +33,7 @@ export FZF_DEFAULT_OPTS="          \
   --cycle                          \
   --select-1                       \
   --color=dark                     \
+  --bind '?:toggle-preview,ctrl-a:select-all,ctrl-d:half-page-down,ctrl-u:half-page-up'        \
   --color=fg:-1,bg:-1,hl:#fb8aa4,fg+:-1,bg+:-1,hl+:#55E579 \
   --color=info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579
 "
