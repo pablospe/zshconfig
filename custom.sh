@@ -33,7 +33,7 @@ export FZF_DEFAULT_OPTS="          \
   --cycle                          \
   --select-1                       \
   --color=dark                     \
-  --bind '?:toggle-preview,ctrl-a:select-all,ctrl-d:half-page-down,ctrl-u:half-page-up'        \
+  --bind '?:toggle-preview,ctrl-a:select-all,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-l:clear-query'        \
   --color=fg:-1,bg:-1,hl:#fb8aa4,fg+:-1,bg+:-1,hl+:#55E579 \
   --color=info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579
 "
@@ -102,3 +102,9 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
 	esac'
+# Continuous-trigger.
+zstyle ':fzf-tab:*' continuous-trigger 'ctrl-e'
+
+# First tab in empty line.
+# https://unix.stackexchange.com/a/14231
+zstyle ':completion:*' insert-tab false

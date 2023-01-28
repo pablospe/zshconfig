@@ -174,5 +174,9 @@ function __autosuggest-continue() {
 zle -N __autosuggest-continue
 # Ctrl+Space to accept autosuggestion and continue.
 bindkey '^ ' __autosuggest-continue
+# Ctrl+Enter to accept autosuggestion and continue.
+bindkey '\n' __autosuggest-continue
+# Ctrl+e to accept autosuggestion and continue.
+bindkey '^E' __autosuggest-continue
 # Ctrl+Alt+Space to accept toggle autosuggestion.
 bindkey '^[^ ' autosuggest-toggle
