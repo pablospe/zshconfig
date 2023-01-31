@@ -4,7 +4,11 @@ mime=$(file -bL --mime-type "$1")
 category=${mime%%/*}
 kind=${mime##*/}
 if [ -d "$1" ]; then
-    exa -1 --group-directories-first --git-ignore --color=always --icons "$1"
+    if hash exa 2>/dev/null; then
+        exa -1 --group-directories-first --git-ignore --color=always --icons "$1"
+    else
+        ls -1 --group-directories-first --color=always "$1"
+    fi
 elif [ "$category" = image ]; then
     chafa "$1"
     exiftool "$1"
