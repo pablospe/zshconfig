@@ -176,5 +176,11 @@ zle -N __autosuggest-continue
 bindkey '^ ' __autosuggest-continue
 # Ctrl+e to accept autosuggestion and continue.
 bindkey '^E' __autosuggest-continue
+# Ctrt+enter (in konsole)
+# https://unix.stackexchange.com/a/536651
+bindkey '\e[20;5~' __autosuggest-continue
 # Ctrl+Alt+Space to accept toggle autosuggestion.
 bindkey '^[^ ' autosuggest-toggle
+
+# Alt+down as TAB
+bindkey '^[[1;3B' fzf-completion

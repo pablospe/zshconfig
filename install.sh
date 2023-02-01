@@ -56,3 +56,6 @@ ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh && cp ~/.p10k.zsh ~/.p10k-icons.zsh
 # fzf-tab
 ln -f -s ${MY_PATH}/fzf-tab ${MY_PATH}/oh-my-zsh/custom/plugins/fzf-tab
 ln -f -s ${MY_PATH}/lessfilter.sh ~/.lessfilter.sh
+
+# run update
+bash ${MY_PATH}/update.sh

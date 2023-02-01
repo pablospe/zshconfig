@@ -33,7 +33,7 @@ export FZF_DEFAULT_OPTS="          \
   --cycle                          \
   --select-1                       \
   --color=dark                     \
-  --bind '?:toggle-preview,ctrl-a:select-all,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-l:clear-query,home:first,end:last,enter:accept-non-empty' \
+  --bind '?:toggle-preview,ctrl-a:select-all,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-l:clear-query,home:first,end:last,enter:accept-non-empty,alt-down:down,alt-up:up,right:accept-non-empty,alt-right:accept-non-empty,alt-left:close,left:close' \
   --color=fg:-1,bg:-1,hl:#fb8aa4,fg+:-1,bg+:-1,hl+:#55E579 \
   --color=info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579
 "
@@ -63,7 +63,8 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-be
 #
 # Minimal sizes.
 zstyle ':fzf-tab:*' fzf-min-height 30
-zstyle ':fzf-tab:*' popup-min-size 50 8
+# zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+zstyle ':fzf-tab:*' popup-min-size 200 15
 # Disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # Set descriptions format to enable group support
@@ -71,7 +72,7 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # Set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Preview directory's content when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --group-directories-first --color $realpath'
 # Manuals
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 # Switch group using `,` and `.`
@@ -105,6 +106,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 # Continuous-trigger.
 # zstyle ':fzf-tab:*' continuous-trigger '/' # fzf-tab default
 zstyle ':fzf-tab:*' continuous-trigger 'ctrl-e'
+# zstyle ':fzf-tab:*' continuous-trigger 'alt-right'
 
 # First tab in empty line.
 # https://unix.stackexchange.com/a/14231
