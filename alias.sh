@@ -12,12 +12,10 @@ alias lsdirs='ls --color -d */'
 #
 # Note: for icons to work properly it needs one of the Nerd fonts.
 #
-alias e="exa -l --group-directories-first --color-scale --git-ignore --color=always"
-
 if hash exa 2>/dev/null; then
-  alias l="e"
-  alias ll="e -a --icons"
-  alias ls="exa --group-directories-first --color-scale --git-ignore --color=always"
+  alias l="exa -l --group-directories-first --color-scale --color=always"
+  alias ll="exa -l --group-directories-first --color-scale --color=always -a --icons"
+  alias ls="exa --group-directories-first --color-scale --color=always"
 else
   alias l="ls -lh --group-directories-first"
   alias ll="ls -lah --group-directories-first"
