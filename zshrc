@@ -11,8 +11,25 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 COMPLETION_WAITING_DOTS="true"
 
 # Plugins
-plugins=(command-not-found docker docker-compose extract fasd fd git git-extras git-flow last-working-dir pylint rsync tmux web-search zsh-autosuggestions fzf-tab)
-
+plugins=(
+  command-not-found
+  docker
+  docker-compose
+  extract
+  fasd
+  fd
+  fzf-tab
+  git
+  git-extras
+  git-flow
+  last-working-dir
+  pip
+  pylint
+  rsync
+  tmux
+  web-search
+  zsh-autosuggestions
+)
 
 # Load Oh-my-zsh
 zstyle ':omz:update' mode disabled
