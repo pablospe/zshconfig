@@ -12,6 +12,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Plugins
 plugins=(
+  bazel
   command-not-found
   docker
   docker-compose
