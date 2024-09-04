@@ -18,7 +18,6 @@ plugins=(
   docker-compose
   extract
   fasd
-  fd
   fzf-tab
   git
   git-extras
