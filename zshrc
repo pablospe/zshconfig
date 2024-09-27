@@ -29,6 +29,7 @@ plugins=(
   tmux
   web-search
   zsh-autosuggestions
+  tig
 )
 
 # Load Oh-my-zsh

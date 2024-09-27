@@ -110,4 +110,4 @@ zstyle ':fzf-tab:*' continuous-trigger 'ctrl-e'
 
 # First tab in empty line.
 # https://unix.stackexchange.com/a/14231
-zstyle ':completion:*' insert-tab false
+# zstyle ':completion:*' insert-tab false
