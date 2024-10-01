@@ -19,6 +19,7 @@ plugins=(
   extract
   fasd
   fzf-tab
+  gh
   git
   git-extras
   git-flow
@@ -26,10 +27,10 @@ plugins=(
   pip
   pylint
   rsync
+  tig
   tmux
   web-search
   zsh-autosuggestions
-  tig
 )
 
 # Load Oh-my-zsh
