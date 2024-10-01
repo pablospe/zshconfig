@@ -33,6 +33,10 @@ else
     alias o="less"
 fi
 
+# micro editor.
+# curl https://getmic.ro | bash
+alias m="micro"
+
 # du
 alias du="du -h --max-depth=1"
 
