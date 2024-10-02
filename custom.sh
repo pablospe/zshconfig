@@ -80,7 +80,8 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':fzf-tab:*' switch-group F1 F2
 # Show file contents
 # https://github.com/Aloxaf/fzf-tab/wiki/Preview
-zstyle ':fzf-tab:complete:(vi|l|ls|code):*' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:(vi|vim|l|ls|code|m):*' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:micro:*' fzf-preview 'less ${(Q)realpath}'
 export LESSOPEN='|~/.lessfilter.sh %s'
 # Environment variable
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
