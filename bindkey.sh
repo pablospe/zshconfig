@@ -94,7 +94,8 @@ bindkey "\e\e" kill-whole-line
 ## dirhistory
 ##
 ## My implementation of the dirhistory plugin, since there are problems
-## 'last-working-dir' plugin. It enables cycling through the directory## stack using Alt+Left/Right
+## 'last-working-dir' plugin. It enables cycling through the directory
+## stack using Alt+Left/Right
 ##
 
 # Alt+Left
