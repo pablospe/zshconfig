@@ -20,7 +20,7 @@ setopt pushdminus
 #
 # FZF
 #
-# ALT+T (file), Alt-C (folders)
+# Ctrl+T (file), Alt-C (folders)
 #
 export FZF_DEFAULT_OPTS="          \
   --exact                          \

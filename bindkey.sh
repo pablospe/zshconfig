@@ -94,8 +94,7 @@ bindkey "\e\e" kill-whole-line
 ## dirhistory
 ##
 ## My implementation of the dirhistory plugin, since there are problems
-## 'last-working-dir' plugin. It enables cycling through the directory
-## stack using Alt+Left/Right
+## 'last-working-dir' plugin. It enables cycling through the directory## stack using Alt+Left/Right
 ##
 
 # Alt+Left
@@ -138,14 +137,14 @@ bindkey '^[Oc' forward-word  # urxvt: C-Right
 bindkey "^F" forward-word  # urxvt: C-F
 bindkey "^B" backward-word # urxvt: C-B
 
-# Transpose words (between whitespaces)
-# Note: 'select-word-style whitespace' didn't work
-transpose-words2 () {
-  local WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
-  zle transpose-words
-}
-zle -N transpose-words2
-bindkey "" transpose-words2 # urxvt: C-T
+## Transpose words (between whitespaces)
+## Note: 'select-word-style whitespace' didn't work
+#transpose-words2 () {
+#  local WORDCHARS="*?_-.[]~=/&;!#$%^(){}<>"
+#  zle transpose-words
+#}
+#zle -N transpose-words2
+#bindkey "" transpose-words2 # urxvt: C-T
 
 # home (ESC 0), end (ESC 4). urxvt
 # Note: remember 'C-A' and ''C-E'
