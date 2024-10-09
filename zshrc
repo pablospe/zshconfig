@@ -59,3 +59,8 @@ source $ZSH_PWD/export.sh
 
 # Load gss (git status)
 source $ZSH_PWD/gss.sh
+
+# OSC support
+# https://wezfurlong.org/wezterm/config/lua/keyassignment/ScrollToPrompt.html#scrolltoprompt
+# https://gitlab.freedesktop.org/Per_Bothner/specifications/blob/master/proposals/semantic-prompts.md#zsh-shell
+source $ZSH_PWD/OSC-shell-integration.zsh
