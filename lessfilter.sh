@@ -5,7 +5,7 @@ category=${mime%%/*}
 kind=${mime##*/}
 if [ -d "$1" ]; then
     if hash exa 2>/dev/null; then
-        exa -1 --group-directories-first --git-ignore --color=always --icons "$1"
+        exa -1 --group-directories-first --color=always --icons "$1"
     else
         ls -1 --group-directories-first --color=always "$1"
     fi
