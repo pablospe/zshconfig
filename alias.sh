@@ -12,13 +12,19 @@ alias lsdirs='ls --color -d */'
 #
 # Note: for icons to work properly it needs one of the Nerd fonts.
 #
-if hash exa 2>/dev/null; then
+if hash eza 2>/dev/null; then
+  alias l="eza -l --group-directories-first --color=always --icons --hyperlink --smart-group --time-style=relative"
+  alias ll="eza -l --group-directories-first --color=always -a --icons --hyperlink"
+  alias ls="eza --group-directories-first --color=always --hyperlink --smart-group"
+  alias lr="eza -l --group-directories-first --color=always --icons --hyperlink --smart-group --time-style=relative --tree"
+  alias tree="eza --group-directories-first --color=always --icons --hyperlink --smart-group --time-style=relative --tree"
+elif hash exa 2>/dev/null; then
   alias l="exa -l --group-directories-first --color-scale --color=always"
   alias ll="exa -l --group-directories-first --color-scale --color=always -a --icons"
   alias ls="exa --group-directories-first --color-scale --color=always"
 else
-  alias l="ls -lh --group-directories-first"
-  alias ll="ls -lah --group-directories-first"
+  alias l="ls -lh --group-directories-first --hyperlink=always"
+  alias ll="ls -lah --group-directories-first --hyperlink=always"
 fi
 alias la="l -a"
 
