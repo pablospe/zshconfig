@@ -38,6 +38,9 @@ export FZF_DEFAULT_OPTS="          \
   --color='info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579'
 "
 
+# fzf-tab does not follow FZF_DEFAULT_OPTS.
+zstyle ':fzf-tab:*' fzf-flags ${(Q)${(Z:nC:)FZF_DEFAULT_OPTS}}
+
 export FZF_CTRL_R_OPTS="           \
   --with-nth 2..                   \
   --bind 'shift-tab:up,tab:down'   \
@@ -55,9 +58,6 @@ source $ZSH_PWD/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 # https://github.com/zsh-users/zsh-autosuggestions/issues/678
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
-
-# Note: fzf-tab does not follow FZF_DEFAULT_OPTS. Temporal solution.
-zstyle ':fzf-tab:*' fzf-flags --exact --layout=reverse --info=hidden --prompt='$ ' --pointer='=>' --marker='+' --cycle --select-1 --color=dark --bind '?:toggle-preview,ctrl-a:select-all,ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-l:clear-query,home:first,end:last,enter:accept-non-empty,alt-down:down,alt-up:up,right:accept-non-empty,alt-right:accept-non-empty,alt-left:close,left:close' --color='fg:-1,bg:-1,hl:#fb8aa4,fg+:-1,bg+:-1,hl+:#55E579' --color='info:#af87ff,prompt:#fb8aa4,pointer:#55E579,marker:#55E579,spinner:#55E579'
 
 #
 # fzf-tab
