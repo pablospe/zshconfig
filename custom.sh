@@ -25,6 +25,7 @@ setopt pushdminus
 export FZF_DEFAULT_OPTS="          \
   --exact                          \
   --height ${FZF_TMUX_HEIGHT:-50%} \
+  --info=hidden                    \
   --layout=reverse                 \
   --prompt='$  '                   \
   --pointer='=>'                   \
@@ -108,8 +109,10 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	esac'
 # Continuous-trigger.
 # zstyle ':fzf-tab:*' continuous-trigger '/' # fzf-tab default
-zstyle ':fzf-tab:*' continuous-trigger 'ctrl-e'
+# zstyle ':fzf-tab:*' continuous-trigger 'ctrl-e'
 # zstyle ':fzf-tab:*' continuous-trigger 'alt-right'
+zstyle ':fzf-tab:*' continuous-trigger 'enter'
+# zstyle ':fzf-tab:*' continuous-trigger 'tab'
 
 # First tab in empty line.
 # https://unix.stackexchange.com/a/14231
