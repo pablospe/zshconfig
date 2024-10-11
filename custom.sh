@@ -39,7 +39,7 @@ export FZF_DEFAULT_OPTS="          \
 "
 
 # fzf-tab does not follow FZF_DEFAULT_OPTS.
-zstyle ':fzf-tab:*' fzf-flags ${(Q)${(Z:nC:)FZF_DEFAULT_OPTS}}
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
 
 export FZF_CTRL_R_OPTS="           \
   --with-nth 2..                   \
