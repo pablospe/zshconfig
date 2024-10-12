@@ -6,41 +6,54 @@ fpath=($ZSH_PWD/zsh-completions/src $fpath)
 
 # Set name of the theme to load.
 ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="pablo"
 
 # Red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-# Plugins
-plugins=(
-  bazel
-  command-not-found
-  docker
-  docker-compose
-  extract
-  fasd
-  fzf-tab
-  gh
-  git
-  git-extras
-  git-flow
-  last-working-dir
-  pip
-  pylint
-  rsync
-  tig
-  tmux
-  web-search
-  zsh-autosuggestions
-)
+# Check if the parent process is 'mc' (Midnight Commander)
+# https://bbs.archlinux.org/viewtopic.php?id=279096
+if [[ $(realpath /proc/$PPID/exe) == */mc ]]; then
+  # Running inside Midnight Commander
+  # typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+
+  # Plugins
+  plugins=(
+    bazel
+    command-not-found
+    docker
+    docker-compose
+    extract
+    # fasd
+    fzf-tab
+    # git
+    # git-extras
+    last-working-dir
+    zsh-autosuggestions
+  )
+else
+  # Plugins
+  plugins=(
+    bazel
+    command-not-found
+    docker
+    docker-compose
+    extract
+    fasd
+    fzf-tab
+    git
+    git-extras
+    last-working-dir
+    zsh-autosuggestions
+  )
+
+  # OSC support
+  source $ZSH_PWD/wezterm.sh
+fi
 
 # Load Oh-my-zsh
 zstyle ':omz:update' mode disabled
 source $ZSH/oh-my-zsh.sh
-
-# ROS
-#source /opt/ros/<distro>/setup.zsh
-#export ROS_MASTER_URI=http://192.168.0.100:11311
-#source ~/catkin_ws/devel/setup.zsh
 
 # Bindings
 source $ZSH_PWD/bindkey.sh
@@ -59,6 +72,3 @@ source $ZSH_PWD/export.sh
 
 # Load gss (git status)
 source $ZSH_PWD/gss.sh
-
-# OSC support
-source $ZSH_PWD/wezterm.sh
