@@ -62,15 +62,13 @@ function git_prompt() {
   # PREFIX="$B$RED"
   # SUFFIX="$B"
 
-  BRANCH=$(command git rev-parse --abbrev-ref HEAD 2>/dev/null) && BRANCH=$BRANCH$BAR
-  HASH=$(command git rev-parse --short HEAD 2> /dev/null) && HASH=$M$HASH$BAR
+  BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) && BRANCH=$BRANCH$BAR
+  HASH=$(git rev-parse --short HEAD 2> /dev/null) && HASH=$M$HASH$BAR
   echo "${PREFIX}${BRANCH}${HASH}${STATUS}${SUFFIX}"
 }
 
 _git_status() {
-  # Git status procelain
-  SUBMODULE_SYNTAX="--ignore-submodules"
-  INDEX=$(command git status --porcelain ${SUBMODULE_SYNTAX} 2>/dev/null)
+  INDEX=$(git status --porcelain --ignore-submodules 2>/dev/null)
 
   # Check if it is a git repository (checked twice to make it work with 'gss')
   if [ $? -ne 0 ]; then
@@ -78,21 +76,21 @@ _git_status() {
   fi
 
   # Split git status in categories
-  GIT_STAGED=$(echo $INDEX | grep -E '^A |^M ')
-  GIT_MODIFIED=$(echo $INDEX | grep -E '^ M |^AM |^ T |^MM ')
-  GIT_DELETED=$(echo $INDEX | grep -E '^ D |^D  |^AD ')
-  GIT_RENAMED=$(echo $INDEX | grep '^R  ' )
-  GIT_UNMERGED=$(echo $INDEX | grep '^UU ')
-  GIT_UNTRACKED=$(echo $INDEX | grep -E '^\?\? ')
+  GIT_STAGED=$(echo "$INDEX" | grep -E '^A |^M ')
+  GIT_MODIFIED=$(echo "$INDEX" | grep -E '^ M |^AM |^ T |^MM ')
+  GIT_DELETED=$(echo "$INDEX" | grep -E '^ D |^D  |^AD ')
+  GIT_RENAMED=$(echo "$INDEX" | grep '^R  ')
+  GIT_UNMERGED=$(echo "$INDEX" | grep '^UU ')
+  GIT_UNTRACKED=$(echo "$INDEX" | grep -E '^\?\? ')
 
   # Categories with different color and symbols (only can be empty the last arg)
   func_name=$1
-  $func_name … $RED "Untracked files" $GIT_UNTRACKED
-  $func_name ═ $Y   "Unmerged files"  $GIT_UNMERGED
-  $func_name → $M   "Renamed files"   $GIT_RENAMED
-  $func_name x $R   "Deleted files"   $GIT_DELETED
-  $func_name + $Y   "Modified files"  $GIT_MODIFIED
-  $func_name ● $C   "Staged changes"  $GIT_STAGED
+  $func_name … $RED "Untracked files" "$GIT_UNTRACKED"
+  $func_name ═ $Y   "Unmerged files"  "$GIT_UNMERGED"
+  $func_name → $M   "Renamed files"   "$GIT_RENAMED"
+  $func_name x $R   "Deleted files"   "$GIT_DELETED"
+  $func_name + $Y   "Modified files"  "$GIT_MODIFIED"
+  $func_name ● $C   "Staged changes"  "$GIT_STAGED"
 }
 
 _git_print_symbols() {
@@ -100,8 +98,8 @@ _git_print_symbols() {
   if [[ -n $str ]]; then
     symbol=$1
     color=$2
-    number=$(echo $str | wc -l)
-    echo -n ${SP}${color}${symbol}${number}
+    number=$(echo "$str" | wc -l)
+    echo -n "${SP}${color}${symbol}${number}"
   fi
 }
 
@@ -110,18 +108,16 @@ _git_print_category() {
   if [[ -n $str ]]; then
     symbol=$1
     color=$2
-    echo $color$3: | sed -e 's/\(%{\|%}\)//g'
+    echo "${color}${3}:" | sed -e 's/\(%{\|%}\)//g'
     # Getting last column and adding symbol at the beginning
-    echo $str$RESET | sed -e 's/^.* //' | sed -e 's/\(%{\|%}\)//g' | sed "s/^/\t\t${symbol} /"
+    echo "$str$RESET" | awk '{print $NF}' | sed -e 's/\(%{\|%}\)//g' | sed "s/^/\t\t${symbol} /"
   fi
 }
 
 # Checks if the working tree is clean
 _git_check_clean() {
   if [[ -z $STATUS ]]; then
-    echo "$SP$GREEN✓"   # clean
-#   else
-#     echo "$SP$R⚡$RESET" # dirty
+    echo "$SP$GREEN✓"
   fi
 }
 
@@ -131,8 +127,8 @@ _git_remote_status() {
 
   if [[ -n ${remote} ]] ; then
     # Number of commits 'ahead' and 'behind' (current branch)
-    GIT_AHEAD=$(git rev-list HEAD --not $remote --count)
-    GIT_BEHIND=$(git rev-list $remote --not HEAD --count)
+    GIT_AHEAD=$(git rev-list HEAD --not "$remote" --count)
+    GIT_BEHIND=$(git rev-list "$remote" --not HEAD --count)
 
     # Variables
     GIT_PROMPT_BEHIND="$SP$M↓${GIT_BEHIND}"
@@ -140,15 +136,12 @@ _git_remote_status() {
     GIT_PROMPT_DIVERGED="$SP$R▾▴${GIT_PROMPT_AHEAD}${GIT_PROMPT_BEHIND}"
 
     # Ahead, Behind or Diverged
-    if [[ $GIT_AHEAD -eq 0 ]] && [[ $GIT_BEHIND -gt 0 ]]
-    then
-      echo $GIT_PROMPT_BEHIND
-    elif [[ $GIT_AHEAD -gt 0 ]] && [[ $GIT_BEHIND -eq 0 ]]
-    then
-      echo $GIT_PROMPT_AHEAD
-    elif [[ $GIT_AHEAD -gt 0 ]] && [[ $GIT_BEHIND -gt 0 ]]
-    then
-      echo $GIT_PROMPT_DIVERGED
+    if [[ $GIT_AHEAD -eq 0 ]] && [[ $GIT_BEHIND -gt 0 ]]; then
+      echo "$GIT_PROMPT_BEHIND"
+    elif [[ $GIT_AHEAD -gt 0 ]] && [[ $GIT_BEHIND -eq 0 ]]; then
+      echo "$GIT_PROMPT_AHEAD"
+    elif [[ $GIT_AHEAD -gt 0 ]] && [[ $GIT_BEHIND -gt 0 ]]; then
+      echo "$GIT_PROMPT_DIVERGED"
     fi
   fi
 }
