@@ -26,6 +26,7 @@ export FZF_DEFAULT_OPTS="          \
   --exact                          \
   --height ${FZF_TMUX_HEIGHT:-50%} \
   --info=hidden                    \
+  --no-separator                   \
   --layout=reverse                 \
   --prompt='$  '                   \
   --pointer='=>'                   \
@@ -113,7 +114,8 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 # zstyle ':fzf-tab:*' continuous-trigger 'alt-right'
 # zstyle ':fzf-tab:*' continuous-trigger 'enter'
 # zstyle ':fzf-tab:*' continuous-trigger 'alt-right'
-zstyle ':fzf-tab:*' continuous-trigger 'ctrl-/'
+# zstyle ':fzf-tab:*' continuous-trigger 'ctrl-/'
+zstyle ':fzf-tab:*' continuous-trigger 'ctrl-space'
 
 # zstyle ':fzf-tab:*' continuous-trigger 'tab'
 
