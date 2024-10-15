@@ -25,7 +25,7 @@ setopt pushdminus
 export FZF_DEFAULT_OPTS="          \
   --exact                          \
   --height ${FZF_TMUX_HEIGHT:-50%} \
-  --info=hidden                    \
+  --info=inline-right              \
   --no-separator                   \
   --layout=reverse                 \
   --prompt='$  '                   \
