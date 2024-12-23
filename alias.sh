@@ -116,6 +116,10 @@ alias z='fasd_cd -d'
 # tmux (overwrite oh-my-zsh plugin alias)
 alias ta='tmux attach'
 
+# copilot
+alias e="gh copilot explain"
+alias copilot="gh copilot explain"
+
 # Others
 alias free="free -m"
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
