@@ -22,6 +22,7 @@ plugins=(
   fzf-tab
   git
   git-extras
+  jj
   last-working-dir
   zsh-autosuggestions
 )
