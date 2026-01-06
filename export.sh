@@ -24,6 +24,9 @@ esac
 # Path
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Go binaries
+export PATH="$PATH:$HOME/go/bin"
+
 # Grep
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
