@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Prefix data and color for every command.
 PS4='\033[1;31m$(date +%H:%M:%S)\033[0m '
