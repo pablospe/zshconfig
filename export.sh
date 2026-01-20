@@ -29,7 +29,7 @@ export PATH="$PATH:$HOME/go/bin"
 
 # Grep
 export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;32'
+export GREP_COLORS='mt=1;32'
 
 # export grep settings
 alias grep="grep $GREP_OPTIONS"
