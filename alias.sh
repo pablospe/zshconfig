@@ -45,9 +45,9 @@ alias m="micro"
 
 # du
 alias du="du -h --max-depth=1"
-
-# Colorized du: http://arsunik.free.fr/prog/cdu.html
-alias cdu="cdu -i -s -dh"
+if hash ncdu 2>/dev/null; then
+  alias du="ncdu"
+fi
 
 # dfc (sudo apt-get install dfc)
 if hash dfc 2>/dev/null; then
