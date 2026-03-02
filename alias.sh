@@ -39,6 +39,12 @@ else
     alias o="less"
 fi
 
+#git
+alias gw='git worktree'
+alias gwa='git worktree add'
+alias gwls='git worktree list'
+alias gwrm='git worktree remove'
+
 # micro editor.
 # curl https://getmic.ro | bash
 alias m="micro"
