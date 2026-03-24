@@ -129,6 +129,12 @@ alias ta='tmux attach'
 alias e="gh copilot explain"
 alias copilot="gh copilot explain"
 
+# Use neovim if available
+if hash nvim 2>/dev/null; then
+    alias vi="nvim"
+    alias vim="nvim"
+fi
+
 # Others
 alias free="free -m"
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
