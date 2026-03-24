@@ -32,9 +32,12 @@ alias la="l -a"
 eval $(dircolors -b $ZSH_PWD/ls_colors/LS_COLORS)
 
 
-# Uses bat if exists
+# Uses bat if exists (installed as batcat on Debian/Ubuntu)
 if hash bat 2>/dev/null; then
     alias o="bat"
+elif hash batcat 2>/dev/null; then
+    alias bat="batcat"
+    alias o="batcat"
 else
     alias o="less"
 fi
