@@ -4,8 +4,10 @@
 PS4='\033[1;31m$(date +%H:%M:%S)\033[0m '
 [ ! $(expr "$SHELL" : '.*\(zsh\)$') ] && set -o pipefail
 
-# Pull the latest changes and update submodules
-git pull && git submodule update --init --recursive --remote
+# Pull the latest changes and update submodules (skip if not a git repo, e.g. Docker COPY)
+if git rev-parse --is-inside-work-tree 2>/dev/null; then
+  git pull && git submodule update --init --recursive --remote
+fi
 
 # Files to be overwritten
 FILES='.zshrc .p10k.zsh .p10k-noicons.zsh'
@@ -38,8 +40,8 @@ sed -i "3i\ZSH_PWD=${MY_PATH}" $ZSHRC
 # Installing
 ln -f -s $ZSHRC ~/.zshrc
 
-# Ignore local changes
-git update-index --assume-unchanged $ZSHRC
+# Ignore local changes (skip if not a git repo, e.g. Docker COPY)
+git update-index --assume-unchanged $ZSHRC 2>/dev/null || true
 
 # Adding 'pablo' theme to oh-my-zsh/theme
 ln -f -s $MY_PATH/themes/pablo.zsh-theme $MY_PATH/oh-my-zsh/custom/themes/
@@ -57,5 +59,7 @@ ln -f -s ${MY_PATH}/p10k.zsh ~/.p10k.zsh && cp ~/.p10k.zsh ~/.p10k-icons.zsh
 ln -f -s ${MY_PATH}/fzf-tab ${MY_PATH}/oh-my-zsh/custom/plugins/fzf-tab
 ln -f -s ${MY_PATH}/lessfilter.sh ~/.lessfilter.sh
 
-# run update
-bash ${MY_PATH}/update.sh
+# run update (skip if not a git repo, e.g. Docker COPY)
+if git -C ${MY_PATH} rev-parse --is-inside-work-tree 2>/dev/null; then
+  bash ${MY_PATH}/update.sh
+fi
