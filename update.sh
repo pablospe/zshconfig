@@ -12,3 +12,6 @@ git pull && git submodule update --init --recursive --remote
 # git submodule foreach -q --recursive 'echo $name; git switch $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master) && git pull'
 git submodule foreach -q --recursive 'echo $path' | xargs -P10 -I {} bash -c 'echo "Updating $1 ..." && cd "$1" && branch=$(git config -f "$(git rev-parse --show-toplevel)/.gitmodules" submodule."$1".branch || echo master) && git switch "$branch" && git pull' bash {}
 
+# Record updated submodule pointers so they don't show as dirty
+git add -A && git diff-index --quiet HEAD || git commit -m "update submodules"
+
