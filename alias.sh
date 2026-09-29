@@ -53,8 +53,17 @@ alias wts='wt switch'
 alias wtsc='wt switch --create'
 alias wtl='wt list'
 
-# claude code (shadows the C compiler `cc` in interactive shells)
-alias cc='claude --dangerously-skip-permissions --continue'
+# claude code (shadows the C compiler `cc` in interactive shells).
+# Continues the last session in $PWD, or starts a new one if there is none.
+unalias cc 2>/dev/null
+function cc {
+  local sessions=(~/.claude/projects/${PWD//[^a-zA-Z0-9]/-}/*.jsonl(N))
+  if (( ${#sessions} )); then
+    claude --dangerously-skip-permissions --continue "$@"
+  else
+    claude --dangerously-skip-permissions "$@"
+  fi
+}
 
 # micro editor.
 # curl https://getmic.ro | bash
@@ -135,6 +144,31 @@ alias z='fasd_cd -d'
 
 # tmux (overwrite oh-my-zsh plugin alias)
 alias ta='tmux attach'
+
+# tn [name]: new tmux session (default name: current dir) with a `main` window
+# running claude (`cc`) on top and a shell below. Reuses the session if it exists.
+function tn {
+  local name=${1:-${PWD:t}}
+  name=${name//[.:]/_}
+  if ! tmux has-session -t "=$name" 2>/dev/null; then
+    local top=$(tmux new-session -d -P -F '#{pane_id}' -s "$name" -n main -c "$PWD")
+    tmux split-window -v -t "$top" -c "$PWD"
+    tmux send-keys -t "$top" cc Enter
+    tmux select-pane -t "$top"
+  fi
+  if [[ -n $TMUX ]]; then
+    tmux switch-client -t "=$name"
+  elif [[ -n $KONSOLE_DBUS_SESSION ]] && hash qdbus 2>/dev/null; then
+    # Name the Konsole tab after the session while attached, restore on detach.
+    local k=(qdbus $KONSOLE_DBUS_SERVICE $KONSOLE_DBUS_SESSION)
+    local fmt0=$($k tabTitleFormat 0) fmt1=$($k tabTitleFormat 1)
+    $k setTabTitleFormat 0 "$name"; $k setTabTitleFormat 1 "$name"
+    tmux attach -t "=$name"
+    $k setTabTitleFormat 0 "$fmt0" 2>/dev/null; $k setTabTitleFormat 1 "$fmt1" 2>/dev/null
+  else
+    tmux attach -t "=$name"
+  fi
+}
 
 # copilot
 alias e="gh copilot explain"
