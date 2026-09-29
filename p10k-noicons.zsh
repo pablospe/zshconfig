@@ -481,7 +481,55 @@
     # # in the repository config. The number of staged and untracked files may also be unknown
     # # in this case.
     # (( VCS_STATUS_HAS_UNSTAGED == -1 )) && res+=" ${modified}─"
-    res+=$(git_prompt)
+
+    # (branch|hash|status) in the style of git_prompt from gss.sh, built from gitstatus
+    # variables instead of forking `git status` on every prompt. Colors ($B, $RED, ...) are
+    # the globals defined in gss.sh.
+    local st
+    local -i ahead=VCS_STATUS_COMMITS_AHEAD behind=VCS_STATUS_COMMITS_BEHIND
+    if (( ahead && behind )); then
+      st+="${R}▾▴${G}↑${ahead}${M}↓${behind}"
+    elif (( ahead )); then
+      st+="${G}↑${ahead}"
+    elif (( behind )); then
+      st+="${M}↓${behind}"
+    fi
+    local -i untracked=VCS_STATUS_NUM_UNTRACKED unmerged=VCS_STATUS_NUM_CONFLICTED renamed=0
+    local -i deleted=$(( VCS_STATUS_NUM_STAGED_DELETED + VCS_STATUS_NUM_UNSTAGED_DELETED ))
+    local -i modified=$(( VCS_STATUS_NUM_UNSTAGED - VCS_STATUS_NUM_UNSTAGED_DELETED ))
+    local -i staged=$(( VCS_STATUS_NUM_STAGED - VCS_STATUS_NUM_STAGED_DELETED ))
+    # gitstatus can't see renames (it reports delete + new), counts submodule changes (gss uses
+    # --ignore-submodules), counts every conflict kind (gss only UU) and can't tell MD from AD.
+    # Only when one of those may apply, run one `git status` (without the untracked scan) and
+    # count those categories exactly like gss does. Untracked still comes from gitstatus.
+    local -i exact=$(( VCS_STATUS_NUM_STAGED_DELETED && VCS_STATUS_NUM_STAGED_NEW ||
+                       VCS_STATUS_NUM_CONFLICTED ||
+                       staged && VCS_STATUS_NUM_UNSTAGED_DELETED ))
+    (( !exact && (VCS_STATUS_NUM_STAGED || VCS_STATUS_NUM_UNSTAGED) )) &&
+      [[ -e $VCS_STATUS_WORKDIR/.gitmodules ]] && exact=1
+    if (( exact )); then
+      local -a lines=(${(f)"$(git --no-optional-locks -C $VCS_STATUS_WORKDIR status \
+        --porcelain --ignore-submodules --untracked-files=no 2>/dev/null)"})
+      staged=${#${(M)lines:#[AMT]*}}
+      modified=${#${(M)lines:#?[MT]*}}
+      deleted=${#${(M)lines:#( D |D  |AD )*}}
+      renamed=${#${(M)lines:#R  *}}
+      unmerged=${#${(M)lines:#UU *}}
+    fi
+    (( untracked )) && st+="${RED}…${untracked}"
+    (( unmerged  )) && st+="${Y}═${unmerged}"
+    (( renamed   )) && st+="${M}→${renamed}"
+    (( deleted   )) && st+="${R}x${deleted}"
+    (( modified  )) && st+="${Y}+${modified}"
+    (( staged    )) && st+="${C}●${staged}"
+    [[ -z $st ]] && st="${GREEN}✓"
+    if [[ -n $VCS_STATUS_COMMIT ]]; then
+      res+="${B}(${RED}${${VCS_STATUS_LOCAL_BRANCH:-HEAD}//\%/%%}${B}|${M}${VCS_STATUS_COMMIT[1,7]}${B}|"
+    else
+      # No commits yet: gss's `git rev-parse` fails, leaving a bare "HEAD" with no separators.
+      res+="${B}(${RED}HEAD"
+    fi
+    res+="${st}${B})${RESET}"
 
     typeset -g my_git_format=$res
   }
