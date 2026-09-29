@@ -170,6 +170,20 @@ function tn {
   fi
 }
 
+# tig: with no args, select the latest commit instead of the untracked/unstaged/staged
+# rows above it (one row each, only when there is something to show).
+function tig {
+  if (( $# == 0 )) && git rev-parse --is-inside-work-tree &>/dev/null; then
+    local line=1
+    git diff --cached --quiet 2>/dev/null || (( line++ ))
+    git diff --quiet 2>/dev/null || (( line++ ))
+    [[ -n $(git ls-files -o --exclude-standard 2>/dev/null | head -1) ]] && (( line++ ))
+    command tig +$line
+  else
+    command tig "$@"
+  fi
+}
+
 # copilot
 alias e="gh copilot explain"
 alias copilot="gh copilot explain"
