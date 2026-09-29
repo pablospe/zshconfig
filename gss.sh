@@ -76,8 +76,10 @@ _git_status() {
   fi
 
   # Split git status in categories
-  GIT_STAGED=$(echo "$INDEX" | grep -E '^A |^M ')
-  GIT_MODIFIED=$(echo "$INDEX" | grep -E '^ M |^AM |^ T |^MM ')
+  # Porcelain is "XY file": X = index (staged), Y = worktree. A file can be
+  # both, e.g. "MM" (staged, then modified again), so check each column.
+  GIT_STAGED=$(echo "$INDEX" | grep -E '^[AMT]')
+  GIT_MODIFIED=$(echo "$INDEX" | grep -E '^.[MT]')
   GIT_DELETED=$(echo "$INDEX" | grep -E '^ D |^D  |^AD ')
   GIT_RENAMED=$(echo "$INDEX" | grep '^R  ')
   GIT_UNMERGED=$(echo "$INDEX" | grep '^UU ')
