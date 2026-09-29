@@ -48,9 +48,20 @@ alias gwa='git worktree add'
 alias gwls='git worktree list'
 alias gwrm='git worktree remove'
 
+# worktrunk
+alias wts='wt switch'
+alias wtsc='wt switch --create'
+alias wtl='wt list'
+
+# claude code (shadows the C compiler `cc` in interactive shells)
+alias cc='claude --dangerously-skip-permissions --continue'
+
 # micro editor.
 # curl https://getmic.ro | bash
 alias m="micro"
+
+# mdterm (terminal markdown renderer); overrides oh-my-zsh's md='mkdir -p'.
+alias md="mdterm"
 
 # du
 alias du="du -h --max-depth=1"
