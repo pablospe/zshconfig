@@ -502,16 +502,18 @@
     # --ignore-submodules), counts every conflict kind (gss only UU) and can't tell MD from AD.
     # Only when one of those may apply, run one `git status` (without the untracked scan) and
     # count those categories exactly like gss does. Untracked still comes from gitstatus.
+    # Intent-to-add files (`git add -N`) also look like unstaged deletes to gitstatus (each one
+    # counts as deleted + modified), so any unstaged delete takes the exact path too.
     local -i exact=$(( VCS_STATUS_NUM_STAGED_DELETED && VCS_STATUS_NUM_STAGED_NEW ||
                        VCS_STATUS_NUM_CONFLICTED ||
-                       staged && VCS_STATUS_NUM_UNSTAGED_DELETED ))
+                       VCS_STATUS_NUM_UNSTAGED_DELETED ))
     (( !exact && (VCS_STATUS_NUM_STAGED || VCS_STATUS_NUM_UNSTAGED) )) &&
       [[ -e $VCS_STATUS_WORKDIR/.gitmodules ]] && exact=1
     if (( exact )); then
       local -a lines=(${(f)"$(git --no-optional-locks -C $VCS_STATUS_WORKDIR status \
         --porcelain --ignore-submodules --untracked-files=no 2>/dev/null)"})
       staged=${#${(M)lines:#[AMT]*}}
-      modified=${#${(M)lines:#?[MT]*}}
+      modified=${#${(M)lines:#?[MTA]*}}
       deleted=${#${(M)lines:#( D |D  |AD )*}}
       renamed=${#${(M)lines:#R  *}}
       unmerged=${#${(M)lines:#UU *}}
