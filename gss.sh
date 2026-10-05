@@ -79,7 +79,8 @@ _git_status() {
   # Porcelain is "XY file": X = index (staged), Y = worktree. A file can be
   # both, e.g. "MM" (staged, then modified again), so check each column.
   GIT_STAGED=$(echo "$INDEX" | grep -E '^[AMT]')
-  GIT_MODIFIED=$(echo "$INDEX" | grep -E '^.[MT]')
+  # " A" = intent-to-add (`git add -N`): listed as a new file not staged for commit.
+  GIT_MODIFIED=$(echo "$INDEX" | grep -E '^.[MTA]')
   GIT_DELETED=$(echo "$INDEX" | grep -E '^ D |^D  |^AD ')
   GIT_RENAMED=$(echo "$INDEX" | grep '^R  ')
   GIT_UNMERGED=$(echo "$INDEX" | grep '^UU ')
