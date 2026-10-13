@@ -27,6 +27,9 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Go binaries
 export PATH="$PATH:$HOME/go/bin"
 
+# Rust (cargo) binaries
+export PATH="$PATH:$HOME/.cargo/bin"
+
 # Grep
 export GREP_OPTIONS='--color=auto'
 export GREP_COLORS='mt=1;32'
