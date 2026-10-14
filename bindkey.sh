@@ -152,6 +152,15 @@ bindkey "^B" backward-word # urxvt: C-B
 bindkey "^[0" beginning-of-line
 bindkey "^[4" end-of-line
 
+# home/end in the other common encodings. terminfo-based bindings only cover
+# $TERM's (\eOH/\eOF for xterm-256color), but tmux sends \e[1~ and \e[4~.
+bindkey "^[[1~" beginning-of-line  # tmux, screen, linux console
+bindkey "^[[4~" end-of-line
+bindkey "^[[7~" beginning-of-line  # urxvt
+bindkey "^[[8~" end-of-line
+bindkey "^[[H"  beginning-of-line  # xterm, normal cursor mode
+bindkey "^[[F"  end-of-line
+
 # C-Y: copy line to clipboard
 x-yank () {
   echo -n $BUFFER | xclip -selection 'clipboard'
