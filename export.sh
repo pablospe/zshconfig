@@ -24,6 +24,9 @@ esac
 # Path
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Scripts kept in the dotfiles repo (cc-sessions, shrinkpdf.sh, lock.sh)
+[ -d "$HOME/dotfiles/bin" ] && export PATH="$PATH:$HOME/dotfiles/bin"
+
 # Go binaries
 export PATH="$PATH:$HOME/go/bin"
 
