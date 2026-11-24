@@ -161,9 +161,13 @@ bindkey "^[[8~" end-of-line
 bindkey "^[[H"  beginning-of-line  # xterm, normal cursor mode
 bindkey "^[[F"  end-of-line
 
-# C-Y: copy line to clipboard
+# C-Y: copy line to clipboard (wl-copy on Wayland, xclip on X11)
 x-yank () {
-  echo -n $BUFFER | xclip -selection 'clipboard'
+  if [[ -n $WAYLAND_DISPLAY ]] && (( $+commands[wl-copy] )); then
+    echo -n $BUFFER | wl-copy
+  else
+    echo -n $BUFFER | xclip -selection 'clipboard'
+  fi
   #echo -n $BUFFER | xsel -i
   #zle yank
 }
